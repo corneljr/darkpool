@@ -4,7 +4,9 @@
             <ion-list>
                 <ion-item class="info-container">
                     <div class="row">
-                        <h2 style="white-space:normal;font-weight:normal;padding-bottom:5px;">You will be booked on one of these flights to {{flights.destination}} at least one month before departure.</h2>
+                        <div class='col'>
+                            <h2 style="white-space:normal;font-weight:normal;padding-bottom:5px;">You will be booked on one of these flights to {{flights.destination}} at least one month before departure.</h2>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col">
@@ -32,65 +34,62 @@
                         </div>
                     </div>
                 </ion-item>
-                <ion-item class="info-container">
-                    <div class="row">
-                        <div class="col">
-                            <p>Roundtrip, Per Person</p>
-                        </div>
-                        <div class="col">
-                            <h2 class="align-right">
-                                <span style='font-weight:500;'>{{flights.price | currency:"$":0}}</span>
-                            </h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <p class="discount align-right">
-                                <strike>{{flights.originalPrice | currency:"$":0}}</strike>&nbsp;Save {{flights.originalPrice - flights.price | currency:"$":0}}</p>
-                        </div>
-                    </div>
-                </ion-item>
             </ion-list>
         </div>
-        <div>
-            <button ng-click="bookNow()" style="border-radius:0px 0px 0px 0px;" class="button button-positive  button-block button-large">Book Now</button>
-        </div>
-        <div>
-            <script id="howItWorks.html" type="text/ng-template">
-                <ion-modal-view>
-                    <ion-header-bar>
-                        <i style='font-size:20px;padding:5px;' ng-click="modal.hide()" class='ion-close'></i>
-                    </ion-header-bar>
-                    <ion-content>
-                        <ion-slide-box on-slide-changed="slideChanged(index)">
-                            <ion-slide>
-                                <img src="<%= image_url('TimeTravelDark.jpg') %>" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
-                                <div class='warp-info align-center'>
-                                    <h3>No more waiting for prices to drop!</h3><br>
-                                    <p>The bunny has travelled into the future and brought back low fares into the present.</p><br>
-                                    <p>You won't find these prices on any other website!</p>
-                                </div>
-                            </ion-slide>
-                            <ion-slide>
-                                <img src="<%= image_url('TravelAgency.jpg') %>" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
-                                <div class='warp-info align-center'>
-                                    <h3>Book the future today.</h3><br>
-                                    <p>You can book these future fares immediately and lock in the low price.</p><br>
-                                    <p>But hurry, the Timewarp doesn't stay open for very long.</p>
-                                </div>
-                            </ion-slide>
-                            <ion-slide>
-                                <img src="<%= image_url('BunnyTrip.jpg') %>" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
-                                <div class='warp-info align-center'>
-                                    <h3>No more waiting for prices to drop!</h3><br>
-                                    <p>The bunny has travelled into the future and brought back low fares into the present.</p><br>
-                                    <p>You won't find these prices on any other website!</p>
-                                </div>
-                            </ion-slide>
-                        </ion-slide-box>
-                    </ion-content>
-                  </ion-modal-view>
-            </script>
-        </div>
+        <div style='height:143px;'></div>
     </ion-content>
+    <div class='fixed-to-bottom'>
+        <div class="info-container">
+            <div class="row">
+                <div class="col">
+                    <p>Roundtrip, Per Person</p>
+                </div>
+                <div class="col">
+                    <h4 class="align-right">{{flights.price | currency:"$":0}}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p class="discount align-right">
+                        <strike>{{flights.originalPrice | currency:"$":0}}</strike>&nbsp;Save {{flights.originalPrice - flights.price | currency:"$":0}}</p>
+                </div>
+            </div>
+        </div>
+        <button ng-click="bookNow()" style="border-radius:0px 0px 0px 0px;" class="button button-positive button-block button-large">Book Now</button>
+    </div>
+    <script id="howItWorks.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar>
+                <i style='font-size:20px;padding:5px;' ng-click="modal.hide()" class='ion-close'></i>
+            </ion-header-bar>
+            <ion-content>
+                <ion-slide-box on-slide-changed="slideChanged(index)">
+                    <ion-slide>
+                        <img src="<%= image_url('TimeTravelDark.jpg') %>" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
+                        <div class='warp-info align-center'>
+                            <h3>No more waiting for prices to drop!</h3><br>
+                            <p>The bunny has travelled into the future and brought back low fares into the present.</p><br>
+                            <p>You won't find these prices on any other website!</p>
+                        </div>
+                    </ion-slide>
+                    <ion-slide>
+                        <img src="<%= image_url('TravelAgency.jpg') %>" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
+                        <div class='warp-info align-center'>
+                            <h3>Book the future today.</h3><br>
+                            <p>You can book these future fares immediately and lock in the low price.</p><br>
+                            <p>But hurry, the Timewarp doesn't stay open for very long.</p>
+                        </div>
+                    </ion-slide>
+                    <ion-slide>
+                        <img src="<%= image_url('BunnyTrip.jpg') %>" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
+                        <div class='warp-info align-center'>
+                            <h3>No more waiting for prices to drop!</h3><br>
+                            <p>The bunny has travelled into the future and brought back low fares into the present.</p><br>
+                            <p>You won't find these prices on any other website!</p>
+                        </div>
+                    </ion-slide>
+                </ion-slide-box>
+            </ion-content>
+          </ion-modal-view>
+    </script>
 </ion-view>

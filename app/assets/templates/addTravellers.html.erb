@@ -32,9 +32,13 @@
             <script id="addTraveller.html" type="text/ng-template">
                 <ion-modal-view>
                     <ion-header-bar>
-                      <button class="button button-clear button-primary" ng-click="modal.hide()">close</button>
+                      <button class="button buttons back-button button-clear header-item" ng-click="modal.hide()">Cancel</button>
+                      <div class='title title-center header-item'>New Traveller</div>
                     </ion-header-bar>
                     <ion-content>
+                    <div class='info-container'>
+                        <p>Name corrections are not permitted after booking. Be sure your passenger details, including spelling, match your travel ID or bording may be denied</p>
+                    </div>
                     <form class="list" name='travellerForm' novalidate>
                         <div class='row'>
                             <div class='col-50'>
@@ -48,13 +52,18 @@
                                 </label>
                             </div>
                         </div>
-                        <label class="item item-input">
-                            <input type="text" placeholder="Last Name" ng-model='new_traveller.lastName' required>
-                        </label>
+                        <div class='row'>
+                            <div class='col' style='padding:0;'>
+                                <label class="item item-input">
+                                    <input type="text" placeholder="Last Name" ng-model='new_traveller.lastName' required>
+                                </label>
+                            </div>
+                        </div>
                         <div class='row'>
                             <div class='col-50'>
                                 <label class="item item-input">
-                                    <input type="date" placeholder="Birthday" ng-model='new_traveller.birthday' required>
+                                    <span class='input-label'>Birthday</span>
+                                    <input type="date" placeholder="" ng-model='new_traveller.birthday' required>
                                 </label>
                             </div>
                             <div class='col-50'>
@@ -64,9 +73,13 @@
                                 </label>
                             </div>
                         </div>
-                        <label class="item item-input">
-                            <input type="text" placeholder="Email" ng-model='new_traveller.email' required>
-                        </label>
+                        <div class='row'>
+                            <div class='col' style='padding:0;'>
+                                <label class="item item-input">
+                                    <input type="text" placeholder="Email" ng-model='new_traveller.email' required>
+                                </label>
+                            </div>
+                        </div>
                     </form>
                     </ion-content>
                     <button class='button button-positive button-block button-large fixed-to-bottom' style='border-radius:0px;' ng-disabled='new_traveller.email == 0 || new_traveller.birthday == 0 || new_traveller.lastName == 0 || new_traveller.firstName == 0' ng-click='addTraveller()'>Add Traveller</button>

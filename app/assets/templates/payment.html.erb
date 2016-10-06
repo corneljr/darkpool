@@ -22,7 +22,7 @@
         </form> -->
         <form class="list" name="paymentForm">
             <div class="row">
-                <div class="col">
+                <div class="col" style='padding-left:0;'>
                     <i class="ion-card" style="position:absolute;top:30px;"></i>
                     <label class="item item-input">
                         <input type="text" placeholder="Credit Card #" ng-model="cardData.cardNumber" required="">
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div class="col" style='padding-left:0;'>
                     <label class="item item-select">
                         <span class="input-label"></span>
                         <select ng-model="cardData.country" ng-options="country.id as country.label for country in countries" required=""></select>
@@ -50,14 +50,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div class="col" style='padding-left:0;'>
                     <label class="item item-input">
                         <input type="text" placeholder="Billing ZIP/Postal Code" ng-model="cardData.zipCode" required="">
                     </label>
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div class="col" style='padding-left:0;'>
                     <label class="item item-input">
                         <input type="text" placeholder="Cardholder Name" ng-model="cardData.name" required="">
                     </label>
