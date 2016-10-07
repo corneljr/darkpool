@@ -95,11 +95,8 @@ function ($scope, $stateParams, $state, TravellerService, Flights, $ionicModal, 
 
     
     $scope.addTraveller = function(){
-        console.log(TravellerService.travellers);
-        console.log($scope.new_traveller);
         if (TravellerService.travellers) {
             TravellerService.travellers.push($scope.new_traveller);    
-            console.log(TravellerService.travellers);
         } else {
             TravellerService.travellers = [$scope.new_traveller];
         }
@@ -160,10 +157,10 @@ function ($scope, $stateParams, $state, TravellerService, Flights, $ionicModal, 
 
 }])
    
-.controller('paymentCtrl', ['$scope', '$stateParams', 'TravellerService', 'Flights', '$state', 'TripService','$window', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('paymentCtrl', ['$scope', '$stateParams','TravellerService', 'Flights', '$state', 'TripService','$window', 'PaymentService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, TravellerService, Flights, $state, TripService, $window) {
+function ($scope, $stateParams, TravellerService, Flights, $state, TripService, $window, PaymentService) {
     
     $scope.travellers = TravellerService.travellers;
     $scope.flightType = $stateParams.type;
@@ -171,22 +168,26 @@ function ($scope, $stateParams, TravellerService, Flights, $state, TripService, 
     $scope.tripDetails = TripService.tripDetails();
     $scope.totalCost = $scope.flights.price * $scope.travellers.length
 
-    // $window.Spreedly.init("Ll6fAtoVSTyVMlJEmtpoJV8S", {
-    //   "numberEl": "spreedly-number",
-    //   "cvvEl": "spreedly-cvv"
-    // });
-
     $scope.submitPaymentForm = function() {
-      console.log('submitted');
+      firstName = $scope.cardData.name.split(' ')[0];
+      lastName = $scope.cardData.name.split(' ')[1];
+      month = $scope.cardData.expiry.split('/')[0];
+      year = $scope.cardData.expiry.split('/')[1]
 
-      requiredFields = {}
+      var card = {
+        "kind": "credit_card",
+        "first_name": firstName,
+        "last_name": lastName,
+        "number": $scope.cardData.cardNumber,
+        "verification_value": $scope.cardData.cvc,
+        "month": month,
+        "year": year,
+        "email": $scope.travellers[0].email
+      }
 
-      requiredFields["full_name"] = document.getElementById("full_name").value;
-      requiredFields["month"] = document.getElementById("month").value;
-      requiredFields["year"] = document.getElementById("year").value;
+      PaymentService.getToken(card);
 
-      // Spreedly.tokenizeCreditCard(requiredFields);
-    }
+    };
 
     $scope.review = function() {
         $state.go('reviewFarePurchase', {'type':$scope.flightType})  
