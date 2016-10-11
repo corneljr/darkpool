@@ -29,4 +29,18 @@ class ApiController < ApplicationController
 	  	render json: {success: false}
 	  end
 	end
+
+	def get_flights
+		type = params[:type]
+		origin = params[:origin]
+		destination = params[:destination]
+		departure_date = params[:departure_date]
+		return_date = params[:return_date]
+
+		uri = URI("https://mobile-api.hopper.com/api/v1/cards?origin=#{origin}&destination=#{destination}&departure=#{departure_date}&return=#{return_date}")
+		response = Net::HTTP.get(uri)
+		parsed_response = JSON.parse(response)
+
+		flights = parsed_response['cards'][0]['trips']
+	end
 end

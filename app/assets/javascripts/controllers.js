@@ -165,12 +165,7 @@ function ($scope, $stateParams, $location, TravellerService, Flights, $state, Tr
     $scope.flights = Flights[$scope.flightType]();
     $scope.tripDetails = TripService.tripDetails();
     $scope.totalCost = $scope.flights.price * $scope.travellers.length
-
-    // if($location.search('cardError') == 'true') {
-    //   console.log('true')
-    // } else {
-    //   console.log('false')
-    // }
+    $scope.cardError = $stateParams.cardError;
 
     $scope.submitPaymentForm = function() {
       firstName = $scope.cardData.name.split(' ')[0];
@@ -251,6 +246,7 @@ function ($scope, $state, $stateParams, TravellerService, $ionicModal, Flights, 
           console.log(response);
           if (response['data']['success']) {
             $scope.openModal();
+            //do something to confirm purchase
           } else {
             $state.go('payment', {'type':$scope.flightType, 'cardError': true});
           }

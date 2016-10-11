@@ -23,7 +23,7 @@ angular.module('app.routes', [])
   })
 
   .state('payment', {
-    url: '/payment/:type',
+    url: '/payment/:type?cardError',
     templateUrl: 'payment.html',
     controller: 'paymentCtrl'
   })
