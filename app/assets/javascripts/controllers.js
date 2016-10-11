@@ -91,8 +91,6 @@ function ($scope, $stateParams, $state, TravellerService, Flights, $ionicModal, 
         'gender': $scope.genders[0].id,
         'email':''
     }
-        
-
     
     $scope.addTraveller = function(){
         if (TravellerService.travellers) {
@@ -157,16 +155,22 @@ function ($scope, $stateParams, $state, TravellerService, Flights, $ionicModal, 
 
 }])
    
-.controller('paymentCtrl', ['$scope', '$stateParams','TravellerService', 'Flights', '$state', 'TripService','$window', 'PaymentService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('paymentCtrl', ['$scope', '$stateParams','$location','TravellerService', 'Flights', '$state', 'TripService','$window', 'PaymentService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, TravellerService, Flights, $state, TripService, $window, PaymentService) {
+function ($scope, $stateParams, $location, TravellerService, Flights, $state, TripService, $window, PaymentService) {
     
     $scope.travellers = TravellerService.travellers;
     $scope.flightType = $stateParams.type;
     $scope.flights = Flights[$scope.flightType]();
     $scope.tripDetails = TripService.tripDetails();
     $scope.totalCost = $scope.flights.price * $scope.travellers.length
+
+    // if($location.search('cardError') == 'true') {
+    //   console.log('true')
+    // } else {
+    //   console.log('false')
+    // }
 
     $scope.submitPaymentForm = function() {
       firstName = $scope.cardData.name.split(' ')[0];
@@ -175,22 +179,36 @@ function ($scope, $stateParams, TravellerService, Flights, $state, TripService, 
       year = $scope.cardData.expiry.split('/')[1]
 
       var card = {
-        "kind": "credit_card",
-        "first_name": firstName,
-        "last_name": lastName,
-        "number": $scope.cardData.cardNumber,
-        "verification_value": $scope.cardData.cvc,
-        "month": month,
-        "year": year,
-        "email": $scope.travellers[0].email
-      }
+        "payment_method":{
+          "credit_card":{
+            "first_name": firstName,
+            "last_name": lastName,
+            "number":$scope.cardData.cardNumber,
+            "verification_value": $scope.cardData.cvc,
+            "month":month,
+            "year":year,
+            "email": $scope.travellers[0].email
+          },
+          "data": {
+            "my_payment_method_identifier": "448",
+            "extra_stuff": {
+              "some_other_things": "Can be anything really"
+            }
+          }
+        }
+      } 
 
-      PaymentService.getToken(card);
-
-    };
-
-    $scope.review = function() {
-        $state.go('reviewFarePurchase', {'type':$scope.flightType})  
+      promise = PaymentService.getToken(card);
+      promise.then( function(response){
+        console.log(response);
+        token = response['data']['transaction']['payment_method']['token']
+        PaymentService.payment_token = token
+        PaymentService.card_number = response['data']['transaction']['payment_method']['number']
+        $state.go('reviewFarePurchase', {'type':$scope.flightType});
+      }, function(error_response) {
+        console.log('nopeee');
+        console.log(error_response);
+      });
     };
     
     $scope.countries = [
@@ -214,19 +232,32 @@ function ($scope, $stateParams, TravellerService, Flights, $state, TripService, 
     }
 }])
    
-.controller('reviewFarePurchaseCtrl', ['$scope', '$stateParams', 'TravellerService', '$ionicModal', 'Flights', 'TripService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('reviewFarePurchaseCtrl', ['$scope', '$state', '$stateParams', 'TravellerService', '$ionicModal', 'Flights', 'TripService','PaymentService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, TravellerService, $ionicModal, Flights, TripService) {
+function ($scope, $state, $stateParams, TravellerService, $ionicModal, Flights, TripService,PaymentService) {
 
     $scope.savedTravellers = TravellerService.travellers;
     $scope.flightType = $stateParams.type;
     $scope.flights = Flights[$scope.flightType]();
-    // $scope.totalCost = $scope.flights.price * $scope.savedTravellers.length
+    $scope.totalCost = $scope.flights.price * $scope.savedTravellers.length
     $scope.tripDetails = TripService.tripDetails();
+    $scope.token = PaymentService.payment_token;
+    $scope.card = PaymentService.card_number;
     
     $scope.confirmation = function() {
-        $scope.openModal();
+        promise = PaymentService.chargeCard($scope.token,$scope.totalCost)
+        promise.then( function(response){
+          console.log(response);
+          if (response['data']['success']) {
+            $scope.openModal();
+          } else {
+            $state.go('payment', {'type':$scope.flightType, 'cardError': true});
+          }
+        }, function(error_response) {
+          console.log('nopeee');
+          console.log(error_response);
+        });
     };
     
     $ionicModal.fromTemplateUrl('confirmation.html', {

@@ -1,5 +1,8 @@
 <ion-view title="Payment" id="page3">
     <ion-content padding="false" class="has-header">
+        <div class='info-container'>
+            <p>Your Timewarp ticket is fully refundable up until 24 hours after official ticketing.</p>
+        </div>
         <form class="list" name="paymentForm">
             <div class="row">
                 <div class="col" style='padding-left:0;'>
@@ -12,7 +15,7 @@
             <div class="row">
                 <div class="col-60">
                     <label class="item item-input">
-                        <input type="text" placeholder="MM/YY" ng-model="cardData.expiry" required="">
+                        <input type="text" placeholder="MM/YYYY" ng-model="cardData.expiry" required="">
                     </label>
                 </div>
                 <div class="col-40">
@@ -47,16 +50,3 @@
     </ion-content>
     <button id="payment-button3" ng-click="submitPaymentForm()" ng-disabled="cardData.name == 0 || cardData.zipCode == 0 || cardData.cvv == 0 || cardData.expiry == 0 || cardData.cardNumber == 0" style="border-radius:0px 0px 0px 0px;" class="button button-positive button-block fixed-to-bottom">Review Fare &amp; Purchase </button>
 </ion-view>
-
-<script type="text/javascript">
-
-    // function submitPaymentForm() {
-    //     var requiredFields = {}
-
-    //     requiredFields["full_name"] = document.getElementById("full_name").value;
-    //     requiredFields["month"] = document.getElementById("month").value;
-    //     requiredFields["year"] = document.getElementById("year").value;
-
-    //     Spreedly.tokenizeCreditCard(requiredFields);
-    // }
-</script>

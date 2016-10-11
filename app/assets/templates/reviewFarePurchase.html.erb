@@ -6,7 +6,7 @@
                     <i class="ion-card" style="font-size:40px"></i>
                 </div>
                 <div class="col-80">
-                    <p style="color:#3097f3">xxxx xxxx xxxx 6554</p>
+                    <p style="color:#3097f3">{{card}}</p>
                     <p>MasterCard</p>
                 </div>
             </div>
@@ -43,7 +43,7 @@
             </div>
         </div>
     </ion-content>
-    <button id="reviewFarePurchase-button5" ng-click="modal.show()" style="border-radius:0px 0px 0px 0px;" class="button button-positive button-block fixed-to-bottom">Pay Securely Now</button>
+    <button id="reviewFarePurchase-button5" ng-click="confirmation()" style="border-radius:0px 0px 0px 0px;" class="button button-positive button-block fixed-to-bottom">Pay Securely Now</button>
 
     <script id="confirmation.html" type="text/ng-template">
         <ion-modal-view>
