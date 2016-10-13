@@ -1,4 +1,6 @@
 class ApiController < ApplicationController
+	include Flights
+
 	def charge_card
 		token = params["token"]
 		amount = params["amount"].to_i * 10
@@ -31,16 +33,13 @@ class ApiController < ApplicationController
 	end
 
 	def get_flights
-		type = params[:type]
 		origin = params[:origin]
 		destination = params[:destination]
 		departure_date = params[:departure_date]
 		return_date = params[:return_date]
 
-		uri = URI("https://mobile-api.hopper.com/api/v1/cards?origin=#{origin}&destination=#{destination}&departure=#{departure_date}&return=#{return_date}")
-		response = Net::HTTP.get(uri)
-		parsed_response = JSON.parse(response)
+		flights = parse_flights(origin,destination,departure_date,return_date)
 
-		flights = parsed_response['cards'][0]['trips']
+		render json: flights
 	end
 end

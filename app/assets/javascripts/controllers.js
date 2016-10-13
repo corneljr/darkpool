@@ -1,22 +1,35 @@
 angular.module('app.controllers', [])
   
-.controller('timewarpCtrl', ['$scope', '$stateParams', 'Flights', '$ionicModal', '$state', 'TripService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('timewarpCtrl', ['$scope', '$stateParams', 'Flights', '$ionicModal', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, Flights, $ionicModal, $state, TripService) {
-    
-    $scope.arrayToString = function(string){
-        return string.join(", ");
-    };
-    
-    $scope.tripDetails = TripService.tripDetails();
+function ($scope, $stateParams, Flights, $ionicModal, $state) {
 
-    $scope.morningFlights = Flights.morning();
-    $scope.afternoonFlights = Flights.afternoon();
-    $scope.anytimeFlights = Flights.anytime();
-    $scope.anytypeFlights = Flights.anytype();
-    $scope.whateverFlights = Flights.whatever();
-    
+    $scope.flightDetails = {}
+    $scope.tiers = [{'type':'morning','title':'One Stop Flights Leaving in the Morning','description':'You will be booked on a flight departing between 5:00am and 12:00pm. One stop or less. No red eyes.'},
+      {'type':'afternoon','title':'One Stop Flights Leaving in the Afternoon or Evening','description':'You will be booked on a flight Departing between 12:00pm and 10:00pm. One stop or less. No red eyes.'},
+      {'type':'anytime','title':'One Stop Flights Leaving Anytime','description':'You will be booked on a flight Departing anytime during the day. One stop or less. No red eyes.'},
+      {'type':'anytype','title':'Anything on Your Dates','description':'You will be booked on a flight Departing anytime. Two stops or less, with the possibility of red-eyes.'},
+      {'type':'whatever','title':'Anything Goes','description':'You will be booked on a flight Departing +/- 3 days of your dates. Includes direct flights, flights with stops, and some red-eyes and overnight flights.'}
+    ]
+
+    $scope.arrayToString = function(string){
+        if (string) {
+          return string.join(", ");  
+        } else {
+          return 'wooo';
+        }
+    };
+
+    $scope.getParameterByName = function(name) {
+      url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    };
     
     $ionicModal.fromTemplateUrl('howItWorks.html', {
         scope: $scope,
@@ -43,25 +56,35 @@ function ($scope, $stateParams, Flights, $ionicModal, $state, TripService) {
         // Execute action
       });
       
-    $scope.flightDetails = function(type) {
+    $scope.flightBreakdown = function(type) {
         $state.go('flightDetails',{'type':type})
     }
     
     $scope.slideChanged = function(index) {
       $scope.slideIndex = index;
     };
+
+    Flights.tripDetails = {'origin': $scope.getParameterByName('origin'),'destination': $scope.getParameterByName('destination'), 'departureDate': $scope.getParameterByName('departure'), 'returnDate': $scope.getParameterByName('return')}
+    $scope.tripDetails = Flights.tripDetails;
+
+    promise = Flights.getFlights($scope.tripDetails.origin,$scope.tripDetails.destination,$scope.tripDetails.departureDate,$scope.tripDetails.returnDate);
+    promise.then( function(response){
+      Flights.flightDetails = response.data;
+      $scope.flightDetails = Flights.flightDetails;
+    }, function(error_response) {
+      console.log(error_response);
+    });
 }])
    
-.controller('addTravellersCtrl', ['$scope', '$stateParams', '$state', 'TravellerService', 'Flights', '$ionicModal', 'TripService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('addTravellersCtrl', ['$scope', '$stateParams', '$state', 'TravellerService', 'Flights', '$ionicModal', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $state, TravellerService, Flights, $ionicModal, TripService) {
-    
+function ($scope, $stateParams, $state, TravellerService, Flights, $ionicModal) {
     $scope.savedTravellers = TravellerService.travellers;
     $scope.travellersCount = 0
     $scope.flightType = $stateParams.type;
-    $scope.flights = Flights[$scope.flightType]();
-    $scope.tripDetails = TripService.tripDetails();
+    $scope.flights = Flights.flight_list;
+    $scope.tripDetails = Flights.tripDetails;
 
     $scope.totalCost = function() {
       if ($scope.savedTravellers) {
@@ -155,15 +178,15 @@ function ($scope, $stateParams, $state, TravellerService, Flights, $ionicModal, 
 
 }])
    
-.controller('paymentCtrl', ['$scope', '$stateParams','$location','TravellerService', 'Flights', '$state', 'TripService','$window', 'PaymentService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('paymentCtrl', ['$scope', '$stateParams','$location','TravellerService', 'Flights', '$state','$window', 'PaymentService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $location, TravellerService, Flights, $state, TripService, $window, PaymentService) {
+function ($scope, $stateParams, $location, TravellerService, Flights, $state, $window, PaymentService) {
     
     $scope.travellers = TravellerService.travellers;
     $scope.flightType = $stateParams.type;
     $scope.flights = Flights[$scope.flightType]();
-    $scope.tripDetails = TripService.tripDetails();
+    $scope.tripDetails = Flights.tripDetails;
     $scope.totalCost = $scope.flights.price * $scope.travellers.length
     $scope.cardError = $stateParams.cardError;
 
@@ -195,7 +218,6 @@ function ($scope, $stateParams, $location, TravellerService, Flights, $state, Tr
 
       promise = PaymentService.getToken(card);
       promise.then( function(response){
-        console.log(response);
         token = response['data']['transaction']['payment_method']['token']
         PaymentService.payment_token = token
         PaymentService.card_number = response['data']['transaction']['payment_method']['number']
@@ -227,16 +249,16 @@ function ($scope, $stateParams, $location, TravellerService, Flights, $state, Tr
     }
 }])
    
-.controller('reviewFarePurchaseCtrl', ['$scope', '$state', '$stateParams', 'TravellerService', '$ionicModal', 'Flights', 'TripService','PaymentService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('reviewFarePurchaseCtrl', ['$scope', '$state', '$stateParams', 'TravellerService', '$ionicModal', 'Flights','PaymentService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $stateParams, TravellerService, $ionicModal, Flights, TripService,PaymentService) {
+function ($scope, $state, $stateParams, TravellerService, $ionicModal, Flights,PaymentService) {
 
     $scope.savedTravellers = TravellerService.travellers;
     $scope.flightType = $stateParams.type;
-    $scope.flights = Flights[$scope.flightType]();
+    $scope.flights = Flights.flightDetails;
     $scope.totalCost = $scope.flights.price * $scope.savedTravellers.length
-    $scope.tripDetails = TripService.tripDetails();
+    $scope.tripDetails = Flights.tripDetails;
     $scope.token = PaymentService.payment_token;
     $scope.card = PaymentService.card_number;
     
@@ -283,17 +305,17 @@ function ($scope, $state, $stateParams, TravellerService, $ionicModal, Flights, 
  
 }])
    
-.controller('flightDetailsCtrl', ['$scope', '$stateParams', 'Flights', '$ionicModal', '$state', 'TripService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('flightDetailsCtrl', ['$scope', '$stateParams', 'Flights', '$ionicModal', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, Flights, $ionicModal, $state, TripService) {
+function ($scope, $stateParams, Flights, $ionicModal, $state) {
     
     $scope.flightType = $stateParams.type;
-    $scope.flights = Flights[$scope.flightType]();
-    $scope.tripDetails = TripService.tripDetails();
+    $scope.flightDetails = Flights.flightDetails[$scope.flightType];
+    $scope.tripDetails = Flights.tripDetails;
     
     $scope.bookNow = function() {
-        $state.go('addTravellers',{'type':$scope.flightType})
+        $state.go('addTravellers',{'type':$scope.flightType});
     }
     
     $ionicModal.fromTemplateUrl('howItWorks.html', {
@@ -324,6 +346,5 @@ function ($scope, $stateParams, Flights, $ionicModal, $state, TripService) {
     $scope.slideChanged = function(index) {
       $scope.slideIndex = index;
     };
-
 }])
  

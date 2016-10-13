@@ -10,7 +10,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <p>Thu, Dec 12 - Sat, Dec 14</p>
+                            <p>{{tripDetails.departureDate}} - {{tripDetails.returnDate}}</p>
                         </div>
                         <div class="col align-right">
                             <p>
@@ -19,21 +19,26 @@
                         </div>
                     </div>
                 </ion-item>
-                <ion-item ng-repeat="flight in flights.data">
-                    <div class="row">
-                        <div class="col">
-                            <p>{{flight.airline}}</p>
-                        </div>
-                        <div class="col">
-                            <p class="align-right" style="color:black;">{{flight.time}}</p>
-                        </div>
+                <div ng-repeat="leg in ['outbound','return']">
+                    <div class="info-container">
+                        <h4 style='margin-left:10px;margin-top:5px;margin-bottom:5px;'>{{leg}}</h4>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <p class="align-right">{{flight.duration}}, {{flight.stops}} stop</p>
+                    <ion-item ng-repeat="flight in flightDetails[leg]">
+                        <div class="row">
+                            <div class="col">
+                                <p>{{flight.airline}}</p>
+                            </div>
+                            <div class="col">
+                                <p class="align-right" style="color:black;">{{flight.departureTime}} - {{flight.arrivalTime}}</p>
+                            </div>
                         </div>
-                    </div>
-                </ion-item>
+                        <div class="row">
+                            <div class="col">
+                                <p class="align-right">{{flight.duration}}, <ng-pluralize count="flight.stops" when="{'1': '1 stop','other':'{} stops'}"></ng-pluralize></p>
+                            </div>
+                        </div>
+                    </ion-item>
+                </div>
             </ion-list>
         </div>
         <div style='height:127px;'></div>
@@ -45,13 +50,13 @@
                     <p>Roundtrip, Per Person</p>
                 </div>
                 <div class="col">
-                    <h4 class="align-right">{{flights.price | currency:"$":0}}</h4>
+                    <h4 class="align-right">{{flightDetails.targetPrice | currency:"$":0}}</h4>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <p class="discount align-right">
-                        <strike>{{flights.originalPrice | currency:"$":0}}</strike>&nbsp;Save {{flights.originalPrice - flights.price | currency:"$":0}}</p>
+                        <strike>{{flightDetails.currentPrice | currency:"$":0}}</strike>&nbsp;Save {{flightDetails.currentPrice - flightDetails.targetPrice | currency:"$":0}}</p>
                 </div>
             </div>
         </div>

@@ -11,7 +11,6 @@
                     </p>
                 </div>
             </div>
-
         </div>
         <div>
             <div class="info-container">
@@ -21,105 +20,25 @@
         </div>
         <ion-list id="timewarp-list2">
             <div>
-                <ion-item ng-click="flightDetails(&quot;morning&quot;)">
+                <ion-item ng-click="flightBreakdown(&quot;{{tier.type}}&quot;)" ng-repeat="tier in tiers">
                     <div class="row">
                         <div class="col align-left">
                             <p class="discount">
-                                <strike>{{morningFlights.originalPrice | currency:"$":0}}</strike>&nbsp;Save {{morningFlights.originalPrice - morningFlights.price | currency:"$":0}}</p>
+                                <strike>{{flightDetails['currentPrice'] | currency:"$":0}}</strike>&nbsp;Save {{flightDetails['currentPrice'] - flightDetails['targetPrice'] | currency:"$":0}}</p>
                         </div>
                         <div class="col align-right">
-                            <p class="price">{{morningFlights.price | currency:"$":0}} RT</p>
+                            <p class="price">{{flightDetails['targetPrice'] | currency:"$":0}} RT</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col type-info-container">
-                            <h2>One Stop Flights Leaving in the Morning</h2>
-                            <p style="white-space:normal">You will be booked on a flight Departing between 5:00am and 12:00pm. One stop or less. No red eyes.</p>
+                            <h2>{{tier.title}}</h2>
+                            <p style="white-space:normal">{{tier.description}}</p>
                             <br>
-                            <h4>{{arrayToString(morningFlights.airlines)}}</h4>
+                            <h4>{{arrayToString(flightDetails['airlines'])}}</h4>
                         </div>
                     </div>
-                </ion-item>
-
-                <ion-item ng-click="flightDetails(&quot;afternoon&quot;)">
-                    <div class="row">
-                        <div class="col align-left">
-                            <p class="discount">
-                                <strike>{{afternoonFlights.originalPrice | currency:"$":0}}</strike>&nbsp;Save {{afternoonFlights.originalPrice - afternoonFlights.price | currency:"$":0}}</p>
-                        </div>
-                        <div class="col align-right">
-                            <p class="price">{{afternoonFlights.price | currency:"$":0}} RT</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col type-info-container">
-                            <h2 style='white-space:normal;'>One Stop Flights Leaving in the Afternoon or Evening</h2>
-                            <p style="white-space:normal">You will be booked on a flight Departing between 12:00pm and 10:00pm. One stop or less. No red eyes.</p>
-                            <br>
-                            <h4>{{arrayToString(afternoonFlights.airlines)}}</h4>
-                        </div>
-                    </div>
-                </ion-item>
-
-                <ion-item ng-click="flightDetails(&quot;anytime&quot;)">
-                    <div class="row">
-                        <div class="col align-left">
-                            <p class="discount">
-                                <strike>{{anytimeFlights.originalPrice | currency:"$":0}}</strike>&nbsp;Save {{anytimeFlights.originalPrice - anytimeFlights.price | currency:"$":0}}</p>
-                        </div>
-                        <div class="col align-right">
-                            <p class="price">{{anytimeFlights.price | currency:"$":0}} RT</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col type-info-container">
-                            <h2>One Stop Flights Leaving at Anytime</h2>
-                            <p style="white-space:normal">You will be booked on a flight Departing anytime during the day. One stop or less. No red eyes.</p>
-                            <br>
-                            <h4>{{arrayToString(anytimeFlights.airlines)}}</h4>
-                        </div>
-                    </div>
-                </ion-item>
-
-                <ion-item ng-click="flightDetails(&quot;anytype&quot;)">
-                    <div class="row">
-                        <div class="col align-left">
-                            <p class="discount">
-                                <strike>{{anytypeFlights.originalPrice | currency:"$":0}}</strike>&nbsp;Save {{anytypeFlights.originalPrice - anytypeFlights.price | currency:"$":0}}</p>
-                        </div>
-                        <div class="col align-right">
-                            <p class="price">{{anytypeFlights.price | currency:"$":0}} RT</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col type-info-container">
-                            <h2>Anything on My Dates</h2>
-                            <p style="white-space:normal">You will be booked on a flight Departing anytime. Two stops or less, with the possibility of red-eyes.</p>
-                            <br>
-                            <h4>{{arrayToString(anytypeFlights.airlines)}}</h4>
-                        </div>
-                    </div>
-                </ion-item>
-
-                <ion-item ng-click="flightDetails(&quot;whatever&quot;)">
-                    <div class="row">
-                        <div class="col align-left">
-                            <p class="discount">
-                                <strike>{{whateverFlights.originalPrice | currency:"$":0}}</strike>&nbsp;Save {{whateverFlights.originalPrice - whateverFlights.price | currency:"$":0}}</p>
-                        </div>
-                        <div class="col align-right">
-                            <p class="price">{{whateverFlights.price | currency:"$":0}} RT</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col type-info-container">
-                            <h2>Anything Goes</h2>
-                            <p style="white-space:normal">You will be booked on a flight Departing between December 9th and December 15th. Includes direct flights, flights with stops, and some red-eyes and overnight flights.</p>
-                            <br>
-                            <h4>{{arrayToString(whateverFlights.airlines)}}</h4>
-                        </div>
-                    </div>
-                </ion-item>
+                </ion-item>              
             </div>
         </ion-list>
         <div>
