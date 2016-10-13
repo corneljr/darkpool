@@ -1,10 +1,11 @@
-<ion-view title="{{tripDetails.origin}} - {{tripDetails.destination}}" id="page1" style="background-color:#FFFFFF;">
+<ion-view title="{{flightDetails.origin}} - {{flightDetails.destination}}" id="page1" style="background-color:#FFFFFF;">
+    <div style='background-color:#ff6d64;position:absolute;top:0;bottom:0;left:0;right:0;z-index:10000;' ng-if='dataLoaded'></div>
     <ion-content padding="false" class="has-header">
         <div>
             <div class="timewarp-image">
                 <img src="<%= image_url('TimeTravelDark.jpg') %>">
                 <div class="timewarp-info">
-                    <h4>Timewarp! Save $105 per ticket</h4>
+                    <h4>Timewarp! Save {{flightDetails['whatever']['currentPrice'] - flightDetails['whatever']['tierPrice'] | currency:"$":0}} per ticket</h4>
                     <p>You can book these future fares immediately and lock in the low price.</p>
                     <p>
                         <a style='color:white;' ng-click="modal.show()">How does this work?</a>
@@ -24,10 +25,10 @@
                     <div class="row">
                         <div class="col align-left">
                             <p class="discount">
-                                <strike>{{flightDetails['currentPrice'] | currency:"$":0}}</strike>&nbsp;Save {{flightDetails['currentPrice'] - flightDetails['targetPrice'] | currency:"$":0}}</p>
+                                <strike>{{flightDetails[tier.type]['currentPrice'] | currency:"$":0}}</strike>&nbsp;Save {{flightDetails[tier.type]['currentPrice'] - flightDetails[tier.type]['tierPrice'] | currency:"$":0}}</p>
                         </div>
                         <div class="col align-right">
-                            <p class="price">{{flightDetails['targetPrice'] | currency:"$":0}} RT</p>
+                            <p class="price">{{flightDetails[tier.type]['tierPrice'] | currency:"$":0}} RT</p>
                         </div>
                     </div>
                     <div class="row">

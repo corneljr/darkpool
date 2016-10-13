@@ -11,13 +11,25 @@ module Flights
 
 		#########################################
 
-		flight_list = {'currentPrice' => forecast['bestRecentPrice'],
-					   'targetPrice' => forecast['targetPrice'], 
-					   'morning' => {'airlines' => [], 'outbound' => [], 'return' => []},
-					   'afternoon' => {'airlines' => [], 'outbound' => [], 'return' => []},
-					   'anytime' => {'airlines' => [], 'outbound' => [], 'return' => []},
-					   'anytype' => {'airlines' => [], 'outbound' => [], 'return' => []},
-					   'whatever' => {'airlines' => [], 'outbound' => [], 'return' => []}
+		currentPrice = forecast['bestRecentPrice']
+		targetPrice = forecast['targetPrice']
+		availableDiscount = currentPrice - targetPrice
+
+		origin_airport_code = origin.split('/').last
+		destination_airport_code = destination.split('/').last
+
+		origin_city = data['airports'][data['airports'].find_index {|x| x['iata_code'] == origin_airport_code}]['served_entity']['name']
+		destination_city = data['airports'][data['airports'].find_index {|x| x['iata_code'] == destination_airport_code}]['served_entity']['name']
+
+		flight_list = {'currentPrice' => currentPrice,
+					   'targetPrice' => targetPrice,
+					   'origin' => origin_city,
+					   'destination' => destination_city, 
+					   'morning' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.2),'airlines' => [], 'outbound' => [], 'return' => []},
+					   'afternoon' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.2),'airlines' => [], 'outbound' => [], 'return' => []},
+					   'anytime' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.4),'airlines' => [], 'outbound' => [], 'return' => []},
+					   'anytype' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.6),'airlines' => [], 'outbound' => [], 'return' => []},
+					   'whatever' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.9),'airlines' => [], 'outbound' => [], 'return' => []}
 					}
 
 		flight_nums = []

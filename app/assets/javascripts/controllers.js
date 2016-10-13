@@ -4,7 +4,7 @@ angular.module('app.controllers', [])
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, Flights, $ionicModal, $state) {
-
+    $scope.dataLoaded = true
     $scope.flightDetails = {}
     $scope.tiers = [{'type':'morning','title':'One Stop Flights Leaving in the Morning','description':'You will be booked on a flight departing between 5:00am and 12:00pm. One stop or less. No red eyes.'},
       {'type':'afternoon','title':'One Stop Flights Leaving in the Afternoon or Evening','description':'You will be booked on a flight Departing between 12:00pm and 10:00pm. One stop or less. No red eyes.'},
@@ -71,6 +71,7 @@ function ($scope, $stateParams, Flights, $ionicModal, $state) {
     promise.then( function(response){
       Flights.flightDetails = response.data;
       $scope.flightDetails = Flights.flightDetails;
+      $scope.dataLoaded = false
     }, function(error_response) {
       console.log(error_response);
     });
@@ -83,12 +84,12 @@ function ($scope, $stateParams, $state, TravellerService, Flights, $ionicModal) 
     $scope.savedTravellers = TravellerService.travellers;
     $scope.travellersCount = 0
     $scope.flightType = $stateParams.type;
-    $scope.flights = Flights.flight_list;
+    $scope.flightList = Flights.flightDetails[$scope.flightType];
     $scope.tripDetails = Flights.tripDetails;
 
     $scope.totalCost = function() {
       if ($scope.savedTravellers) {
-        return $scope.flights.price * $scope.savedTravellers.length  
+        return $scope.flightList.tierPrice * $scope.savedTravellers.length  
       } else {
         return 0
       }
@@ -185,9 +186,11 @@ function ($scope, $stateParams, $location, TravellerService, Flights, $state, $w
     
     $scope.travellers = TravellerService.travellers;
     $scope.flightType = $stateParams.type;
-    $scope.flights = Flights[$scope.flightType]();
+    $scope.flightDetails = Flights.flightDetails
+    $scope.flightList = Flights.flightDetails[$scope.flightType];
     $scope.tripDetails = Flights.tripDetails;
-    $scope.totalCost = $scope.flights.price * $scope.travellers.length
+
+    $scope.totalCost = $scope.flightList.tierPrice * $scope.travellers.length
     $scope.cardError = $stateParams.cardError;
 
     $scope.submitPaymentForm = function() {
@@ -256,8 +259,8 @@ function ($scope, $state, $stateParams, TravellerService, $ionicModal, Flights,P
 
     $scope.savedTravellers = TravellerService.travellers;
     $scope.flightType = $stateParams.type;
-    $scope.flights = Flights.flightDetails;
-    $scope.totalCost = $scope.flights.price * $scope.savedTravellers.length
+    $scope.flightList = Flights.flightDetails[$scope.flightType];
+    $scope.totalCost = $scope.flightList.tierPrice * $scope.savedTravellers.length
     $scope.tripDetails = Flights.tripDetails;
     $scope.token = PaymentService.payment_token;
     $scope.card = PaymentService.card_number;
@@ -311,7 +314,8 @@ function ($scope, $state, $stateParams, TravellerService, $ionicModal, Flights,P
 function ($scope, $stateParams, Flights, $ionicModal, $state) {
     
     $scope.flightType = $stateParams.type;
-    $scope.flightDetails = Flights.flightDetails[$scope.flightType];
+    $scope.flightDetails = Flights.flightDetails
+    $scope.flightList = Flights.flightDetails[$scope.flightType];
     $scope.tripDetails = Flights.tripDetails;
     
     $scope.bookNow = function() {
