@@ -16,10 +16,21 @@ module Flights
 		availableDiscount = currentPrice - targetPrice
 
 		origin_airport_code = origin.split('/').last
+		origin_type = origin.split('/').first
 		destination_airport_code = destination.split('/').last
+		destination_type = destination.split('/').first
 
-		origin_city = data['airports'][data['airports'].find_index {|x| x['iata_code'] == origin_airport_code}]['served_entity']['name']
-		destination_city = data['airports'][data['airports'].find_index {|x| x['iata_code'] == destination_airport_code}]['served_entity']['name']
+		if origin_type == 'airport'
+			origin_city = data['airports'][data['airports'].find_index {|x| x['iata_code'] == origin_airport_code}]['served_entity']['name']
+		else
+			origin_city = data['airports'][data['airports'].find_index {|x| x['mac_iata_code'] == origin_airport_code}]['served_entity']['name']
+		end
+
+		if destination_type == 'airport'
+			destination_city = data['airports'][data['airports'].find_index {|x| x['iata_code'] == destination_airport_code}]['served_entity']['name']
+		else
+			destination_city = data['airports'][data['airports'].find_index {|x| x['mac_iata_code'] == destination_airport_code}]['served_entity']['name']
+		end
 
 		flight_list = {'currentPrice' => currentPrice,
 					   'targetPrice' => targetPrice,

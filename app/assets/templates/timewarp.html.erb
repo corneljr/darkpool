@@ -5,8 +5,8 @@
             <div class="timewarp-image">
                 <img src="<%= image_url('TimeTravelDark.jpg') %>">
                 <div class="timewarp-info">
-                    <h4>Timewarp! Save {{flightDetails['whatever']['currentPrice'] - flightDetails['whatever']['tierPrice'] | currency:"$":0}} per ticket</h4>
-                    <p>You can book these future fares immediately and lock in the low price.</p>
+                    <h4>Timewarp! Save up to {{flightDetails['whatever']['currentPrice'] - flightDetails['whatever']['tierPrice'] | currency:"$":0}} per ticket!</h4>
+                    <p>Reserve your trip today, at the low prices of the future. Fully guaranteed and refundable.</p>
                     <p>
                         <a style='color:white;' ng-click="modal.show()">How does this work?</a>
                     </p>
@@ -16,7 +16,7 @@
         <div>
             <div class="info-container">
                 <h4 style='margin-bottom:5px;margin-top:5px;'>Choose your flight type</h4>
-                <p style='font-size:14px;color:#666;margin-bottom:5px;'>The more flexible you can be, the cheaper your flight.</p>
+                <p style='font-size:14px;color:#666;margin-bottom:5px;'>The more flexible you can be, the cheaper your flights.</p>
             </div>
         </div>
         <ion-list id="timewarp-list2">
@@ -54,24 +54,24 @@
                                 <img src="<%= image_url('TimeTravelDark.jpg') %>" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
                                 <div class='warp-info align-center'>
                                     <h3>No more waiting for prices to drop!</h3><br>
-                                    <p>The bunny has travelled into the future and brought back low fares into the present.</p><br>
-                                    <p>You won't find these prices on any other website!</p>
-                                </div>
-                            </ion-slide>
-                            <ion-slide>
-                                <img src="<%= image_url('TravelAgency.jpg') %>" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
-                                <div class='warp-info align-center'>
-                                    <h3>Book the future today.</h3><br>
-                                    <p>You can book these future fares immediately and lock in the low price.</p><br>
-                                    <p>But hurry, the Timewarp doesn't stay open for very long.</p>
+                                    <p>Let us do the work for you. Buy your flights now at Hopper's predicted future price and we'll complete the booking when the price drops.</p><br>
+                                    <p>You won't find these prices anywhere else!</p>
                                 </div>
                             </ion-slide>
                             <ion-slide>
                                 <img src="<%= image_url('BunnyTrip.jpg') %>" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
                                 <div class='warp-info align-center'>
                                     <h3>Pack your bags.</h3><br>
-                                    <p>We will book you at leavest 2 weeks before departure. Your price is guarenteed at no extra charge.</p><br>
-                                    <p>And your ticket is refundable!</p>
+                                    <p>We will finalize your flight at least 2 weeks before departure. But don't worry, your price and flight is fully guarenteed.</p><br>
+                                    <p>It's also fully changeable and refundable until booking!</p>
+                                </div>
+                            </ion-slide>
+                            <ion-slide>
+                                <img src="<%= image_url('TravelAgency.jpg') %>" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
+                                <div class='warp-info align-center'>
+                                    <h3>We're here to help.</h3><br>
+                                    <p>Does this sound too good to be true? Well we agree, but it is true! If you have any questions don't hesitate to reach out to us.</p><br>
+                                    <p>Email our timewarp specialist at josh@hopper.com.</p>
                                 </div>
                             </ion-slide>
                         </ion-slide-box>
