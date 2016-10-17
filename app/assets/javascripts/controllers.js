@@ -24,10 +24,10 @@ function ($scope,$stateParams,$timeout,Flights, $ionicModal, $state) {
       }
       string = "image-" + $scope.bunnyIndex
       $scope.bunnyUrl = document.getElementById('image-data').dataset[string];
-      $timeout(runBunny,200);
+      $timeout(runBunny,50);
     }
 
-    $timeout(runBunny, 200);
+    $timeout(runBunny, 50);
 
     $scope.arrayToString = function(string){
         if (string) {
