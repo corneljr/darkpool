@@ -1,9 +1,9 @@
 angular.module('app.controllers', [])
   
-.controller('timewarpCtrl', ['$scope', '$stateParams', 'Flights', '$ionicModal', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('timewarpCtrl', ['$scope','$stateParams','$timeout','Flights', '$ionicModal', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, Flights, $ionicModal, $state) {
+function ($scope,$stateParams,$timeout,Flights, $ionicModal, $state) {
     $scope.dataLoaded = true
     $scope.flightDetails = {}
     $scope.tiers = [{'type':'morning','title':'One Stop Flights Leaving in the Morning','description':'You will be booked on a flight departing between 5:00am and 12:00pm. One stop or less. No red eyes.'},
@@ -12,6 +12,22 @@ function ($scope, $stateParams, Flights, $ionicModal, $state) {
       {'type':'anytype','title':'Anything on Your Dates','description':'You will be booked on a flight Departing anytime. Two stops or less, with the possibility of red-eyes.'},
       {'type':'whatever','title':'Anything Goes','description':'You will be booked on a flight Departing +/- 3 days of your dates. Includes direct flights, flights with stops, and some red-eyes and overnight flights.'}
     ]
+
+    $scope.bunnyIndex = 1
+    $scope.bunnyUrl = ''
+
+    var runBunny = function() {
+      if ($scope.bunnyIndex == 13){
+        $scope.bunnyIndex = 1;
+      } else {
+        $scope.bunnyIndex+=1;        
+      }
+      string = "image-" + $scope.bunnyIndex
+      $scope.bunnyUrl = document.getElementById('image-data').dataset[string];
+      $timeout(runBunny,200);
+    }
+
+    $timeout(runBunny, 200);
 
     $scope.arrayToString = function(string){
         if (string) {
