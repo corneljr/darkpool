@@ -36,4 +36,5 @@ angular.module('payment', [])
 
     this.payment_token;
     this.card_number;
+    this.cardError;
 }]);

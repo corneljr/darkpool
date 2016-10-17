@@ -7,8 +7,6 @@ angular.module('app.routes', [])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-    
-  
 
   .state('timewarp', {
     url: '/timewarp',
@@ -23,7 +21,8 @@ angular.module('app.routes', [])
   })
 
   .state('payment', {
-    url: '/payment/:type?cardError',
+    cache: false,
+    url: '/payment/:type',
     templateUrl: 'payment.html',
     controller: 'paymentCtrl'
   })

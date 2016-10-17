@@ -85,7 +85,7 @@ function ($scope, $stateParams, $state, $window,TravellerService, Flights, $ioni
     if (!Flights.flightDetails) {
       $window.location = $window.location.origin + $window.location.search
     }
-    
+
     $scope.savedTravellers = TravellerService.travellers;
     $scope.travellersCount = 0
     $scope.flightType = $stateParams.type;
@@ -198,9 +198,10 @@ function ($scope, $stateParams, $location, TravellerService, Flights, $state, $w
     $scope.flightDetails = Flights.flightDetails
     $scope.flightList = Flights.flightDetails[$scope.flightType];
     $scope.tripDetails = Flights.tripDetails;
+    $scope.formErrors = []
 
     $scope.totalCost = $scope.flightList.tierPrice * $scope.travellers.length
-    $scope.cardError = $stateParams.cardError;
+    $scope.cardError = PaymentService.cardError;
 
     $scope.submitPaymentForm = function() {
       firstName = $scope.cardData.name.split(' ')[0];
@@ -231,12 +232,11 @@ function ($scope, $stateParams, $location, TravellerService, Flights, $state, $w
       promise = PaymentService.getToken(card);
       promise.then( function(response){
         token = response['data']['transaction']['payment_method']['token']
-        PaymentService.payment_token = token
-        PaymentService.card_number = response['data']['transaction']['payment_method']['number']
+        PaymentService.payment_token = token;
+        PaymentService.card_number = response['data']['transaction']['payment_method']['number'];
         $state.go('reviewFarePurchase', {'type':$scope.flightType});
       }, function(error_response) {
-        console.log('nopeee');
-        console.log(error_response);
+        $scope.formErrors = error_response['data']['errors']
       });
     };
     
@@ -261,10 +261,10 @@ function ($scope, $stateParams, $location, TravellerService, Flights, $state, $w
     }
 }])
    
-.controller('reviewFarePurchaseCtrl', ['$scope', '$state', '$window','$stateParams', 'TravellerService', '$ionicModal', 'Flights','PaymentService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('reviewFarePurchaseCtrl', ['$scope', '$state', '$window','$stateParams', 'TravellerService', '$ionicModal', '$ionicHistory','Flights','PaymentService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $window, $stateParams, TravellerService, $ionicModal, Flights,PaymentService) {
+function ($scope, $state, $window, $stateParams, TravellerService, $ionicModal, $ionicHistory,Flights,PaymentService) {
 
     if (!Flights.flightDetails) {
       $window.location = $window.location.origin + $window.location.search
@@ -279,14 +279,14 @@ function ($scope, $state, $window, $stateParams, TravellerService, $ionicModal, 
     $scope.card = PaymentService.card_number;
     
     $scope.confirmation = function() {
-        promise = PaymentService.chargeCard($scope.token,$scope.totalCost)
+        promise = PaymentService.chargeCard(PaymentService.payment_token,$scope.totalCost)
         promise.then( function(response){
-          console.log(response);
           if (response['data']['success']) {
             $scope.openModal();
             //do something to confirm purchase
           } else {
-            $state.go('payment', {'type':$scope.flightType, 'cardError': true});
+            PaymentService.cardError = true
+            $ionicHistory.goBack();
           }
         }, function(error_response) {
           console.log('nopeee');

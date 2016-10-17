@@ -6,6 +6,9 @@
         <div class='info-container'>
             <p>Your Timewarp ticket is fully refundable up until 24 hours after official ticketing.</p>
         </div>
+        <div class='info-container' ng-if='formErrors.length > 0'>
+            <p ng-repeat='error in formErrors'>{{error.message}}</p>
+        </div>
         <form class="list" name="paymentForm">
             <div class="row">
                 <div class="col" style='padding-left:0;'>
@@ -52,7 +55,7 @@
             <div class='row'>
                 <div class='col' style='margin-left:10px;'>
                     <p ng-show="paymentForm.card.$invalid && !paymentForm.card.$pristine" class='form-error-message'>Please enter a valid credit card number (no spaces)</p>
-                    <p ng-show="paymentForm.expiry.$invalid && !paymentForm.expiry.$pristine" class='form-error-message'>Please enter a valid expiry date</p>
+                    <p ng-show="paymentForm.expiry.$invalid && !paymentForm.expiry.$pristine" class='form-error-message'>Please enter a valid expiry date (MM/YYYY)</p>
                     <p ng-show="paymentForm.cvc.$invalid && !paymentForm.cvc.$pristine" class='form-error-message'>Please enter a valid cvc</p>
                     <p ng-show="paymentForm.zip.$invalid && !paymentForm.zip.$pristine" class='form-error-message'>Please enter a valid zip or postal code</p>
                     <p ng-show="paymentForm.name.$invalid && !paymentForm.name.$pristine" class='form-error-message'>Please enter your full name</p>
