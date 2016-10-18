@@ -24,10 +24,10 @@ function ($scope,$stateParams,$timeout,Flights, $ionicModal, $state) {
       }
       string = "image-" + $scope.bunnyIndex
       $scope.bunnyUrl = document.getElementById('image-data').dataset[string];
-      $timeout(runBunny,50);
+      $timeout(runBunny,10);
     }
 
-    $timeout(runBunny, 50);
+    $timeout(runBunny, 10);
 
     $scope.arrayToString = function(string){
         if (string) {
@@ -88,6 +88,7 @@ function ($scope,$stateParams,$timeout,Flights, $ionicModal, $state) {
       Flights.flightDetails = response.data;
       $scope.flightDetails = Flights.flightDetails;
       $scope.dataLoaded = false
+      document.getElementsByTagName('ion-nav-bar')[0].classList.remove('hide')
     }, function(error_response) {
       console.log(error_response);
     });
