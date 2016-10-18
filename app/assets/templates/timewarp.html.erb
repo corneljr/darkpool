@@ -41,8 +41,7 @@
                         </div>
                     </div>
                     <div class='row'>
-                        <div class='col' ng-repeat="airline in flightDetails[tier.type]['airlines']">
-                            <img height='30' width='auto' src={{airline}}>
+                            <img height='30' width='auto' src={{airline}} ng-repeat="airline in flightDetails[tier.type]['airlines']" style='margin-right:10px;'>
                         </div>
                     </div>
                 </ion-item>              
