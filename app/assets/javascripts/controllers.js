@@ -87,8 +87,8 @@ function ($scope,$stateParams,$timeout,Flights, $ionicModal, $state) {
     promise.then( function(response){
       Flights.flightDetails = response.data;
       $scope.flightDetails = Flights.flightDetails;
-      $scope.dataLoaded = false
-      document.getElementsByTagName('ion-nav-bar')[0].classList.remove('hide')
+      $scope.dataLoaded = false;
+      document.getElementsByTagName('ion-nav-bar')[0].classList.remove('hide');
     }, function(error_response) {
       console.log(error_response);
     });

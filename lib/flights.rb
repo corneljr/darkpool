@@ -83,34 +83,42 @@ module Flights
 				airline_logo = ActionController::Base.helpers.image_url("#{flight["primary_carrier"]}_icon.png")
 
 				# check if there are long layovers/overnights
-				warning = false
-				flight['trip_warnings']['sliceInfos'].each do |slice|
-					slice['warnings'].each do |warning|
-						if warning['level'] == 'high'
-							warning = true
-						end
-					end
-				end
+				tester = test_for_warnings(flight)
 
 				flight_list['anytype']["#{leg}"] << flight_info	
 				flight_list['anytype']['airlines'] << airline_logo unless flight_list['anytype']['airlines'].include?(airline_logo)
-				next if warning
+				next if tester
 
-				flight_list['anytime']["#{leg}"] << flight_info
-				flight_list['anytime']['airlines'] << airline_logo unless flight_list['anytime']['airlines'].include?(airline_logo)
+				if flight_info['stops'] < 2
+					flight_list['anytime']["#{leg}"] << flight_info
+					flight_list['anytime']['airlines'] << airline_logo unless flight_list['anytime']['airlines'].include?(airline_logo)
 
-				flight_list['morning']["#{leg}"] << flight_info if flight_info['departureTime'].include?('am')
-				flight_list['morning']['airlines'] << airline_logo if flight_info['departureTime'].include?('am') && !flight_list['morning']['airlines'].include?(airline_logo)
+					flight_list['morning']["#{leg}"] << flight_info if flight_info['departureTime'].include?('am')
+					flight_list['morning']['airlines'] << airline_logo if flight_info['departureTime'].include?('am') && !flight_list['morning']['airlines'].include?(airline_logo)
 
-				flight_list['afternoon']["#{leg}"] << flight_info if flight_info['departureTime'].include?('pm')
-				flight_list['afternoon']['airlines'] << airline_logo if flight_info['departureTime'].include?('pm') && !flight_list['afternoon']['airlines'].include?(airline_logo)
+					flight_list['afternoon']["#{leg}"] << flight_info if flight_info['departureTime'].include?('pm')
+					flight_list['afternoon']['airlines'] << airline_logo if flight_info['departureTime'].include?('pm') && !flight_list['afternoon']['airlines'].include?(airline_logo)
+				end
 
 				# leave this here for now and figure out how to handle 
 				flight_list['whatever']["#{leg}"] << flight_info
-				flight_list['anytype']['airlines'] << airline_logo unless flight_list['anytype']['airlines'].include?(airline_logo)
+				flight_list['whatever']['airlines'] << airline_logo unless flight_list['whatever']['airlines'].include?(airline_logo)
 			end
 		end
 
 		flight_list
+	end
+
+	def test_for_warnings(flight)
+		tester = false
+		flight['trip_warnings']['sliceInfos'].each do |slice|
+			slice['warnings'].each do |warning|
+				if warning['level'] == 'high'
+					tester = true
+				end
+			end
+		end
+
+		return tester
 	end
 end

@@ -1,4 +1,4 @@
-<ion-view hide-nav-bar="true" title="{{flightDetails.origin}} - {{flightDetails.destination}}" id="page1" style="background-color:#FFFFFF;">
+<ion-view hide-nav-bar="{{dataLoaded}}" title="{{flightDetails.origin}} - {{flightDetails.destination}}" id="page1" style="background-color:#FFFFFF;">
     <div style='background-color:#ff6d64;position:absolute;top:0;bottom:0;left:0;right:0;z-index:10000;' ng-if='dataLoaded'>
         <img src="{{bunnyUrl}}" width="100px" height="auto" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)"/>
     </div>
