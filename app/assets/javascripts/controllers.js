@@ -6,12 +6,7 @@ angular.module('app.controllers', [])
 function ($scope,$stateParams,$timeout,Flights, $ionicModal, $state) {
     $scope.dataLoaded = true
     $scope.flightDetails = {}
-    $scope.tiers = [{'type':'morning','title':'One Stop Flights Leaving in the Morning','description':'You will be booked on a flight departing between 5:00am and 12:00pm. One stop or less. No red eyes.'},
-      {'type':'afternoon','title':'One Stop Flights Leaving in the Afternoon or Evening','description':'You will be booked on a flight Departing between 12:00pm and 10:00pm. One stop or less. No red eyes.'},
-      {'type':'anytime','title':'One Stop Flights Leaving Anytime','description':'You will be booked on a flight departing anytime during the day. One stop or less. No red eyes.'},
-      {'type':'anytype','title':'Anything on Your Dates','description':'You will be booked on a flight Departing anytime. Two stops or less, with the possibility of red-eyes.'},
-      {'type':'whatever','title':'Anything Goes','description':'You will be booked on a flight Departing +/- 3 days of your dates. Includes direct flights, flights with stops, and some red-eyes and overnight flights.'}
-    ]
+    $scope.tiers = Flights.tiers
 
     $scope.bunnyIndex = 1
     $scope.bunnyUrl = ''
@@ -24,10 +19,10 @@ function ($scope,$stateParams,$timeout,Flights, $ionicModal, $state) {
       }
       string = "image-" + $scope.bunnyIndex
       $scope.bunnyUrl = document.getElementById('image-data').dataset[string];
-      $timeout(runBunny,10);
+      $timeout(runBunny,25);
     }
 
-    $timeout(runBunny, 10);
+    $timeout(runBunny, 25);
 
     $scope.arrayToString = function(string){
         if (string) {
@@ -289,11 +284,13 @@ function ($scope, $state, $window, $stateParams, TravellerService, $ionicModal, 
 
     $scope.savedTravellers = TravellerService.travellers;
     $scope.flightType = $stateParams.type;
+    $scope.flightDetails = Flights.flightDetails;
     $scope.flightList = Flights.flightDetails[$scope.flightType];
     $scope.totalCost = $scope.flightList.tierPrice * $scope.savedTravellers.length
     $scope.tripDetails = Flights.tripDetails;
     $scope.token = PaymentService.payment_token;
     $scope.card = PaymentService.card_number;
+    $scope.tripType = Flights.tierMessage($scope.flightType)
     
     $scope.confirmation = function() {
         promise = PaymentService.chargeCard(PaymentService.payment_token,$scope.totalCost)

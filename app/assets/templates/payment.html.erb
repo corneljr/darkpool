@@ -62,6 +62,6 @@
                 </div>
             </div>
         </form>
-        <button id="payment-button3" ng-click="submitPaymentForm()" ng-disabled="paymentForm.$invalid" style="border-radius:0px 0px 0px 0px;" class="button button-positive button-block fixed-to-bottom">Review Fare &amp; Purchase </button>
+        <button id="payment-button3" ng-click="submitPaymentForm()" ng-if="!paymentForm.$invalid" style="border-radius:0px 0px 0px 0px;" class="button button-positive button-block fixed-to-bottom">Review Fare &amp; Purchase </button>
     </ion-content>
 </ion-view>

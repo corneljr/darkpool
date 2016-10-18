@@ -11,21 +11,17 @@
                 </div>
             </div>
         </div>
-        <br>
+        <div class='info-container' style='padding:15px;'>
+            <h4>{{flightDetails.origin}} to {{flightDetails.destination}}</h4>
+            <p>{{tripType}}</p>
+            <p>{{tripDetails.departureDate | date:'MMM d, yyyy'}} - {{tripDetails.returnDate | date:'MMM d, yyyy'}}</p>
+        </div>
         <div class="row content-padding" ng-repeat="traveller in savedTravellers">
             <div class="col">
                 <p>{{traveller.firstName}} {{traveller.lastName}}</p>
             </div>
             <div class="col align-right">
                 <p>{{flightList.tierPrice | currency:"$":0 }}</p>
-            </div>
-        </div>
-        <div class="row content-padding">
-            <div class="col">
-                <p>Taxes</p>
-            </div>
-            <div class="col align-right">
-                <p>{{40 | currency:"$":0 }}</p>
             </div>
         </div>
         <div class="row content-padding">
