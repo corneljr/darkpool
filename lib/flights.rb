@@ -110,7 +110,7 @@ module Flights
 				flight_list['anytype']['airlines'] << airline_logo unless flight_list['anytype']['airlines'].include?(airline_logo)
 			end
 		end
-		binding.pry
+
 		flight_list
 	end
 end
