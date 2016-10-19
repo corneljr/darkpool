@@ -5,7 +5,7 @@
                 <ion-item class="info-container">
                     <div class="row">
                         <div class='col'>
-                            <h2 style="white-space:normal;font-weight:normal;padding-bottom:5px;">You will be booked on one of these outbound and return flights. Your trip will be finalized at least a month before departure and is fully refundable until this date.</h2>
+                            <h2 style="white-space:normal;font-weight:normal;padding-bottom:5px;">You will be booked on one of these outbound and return flights. Your trip will be finalized at least a month before departure and is fully refundable.</h2>
                         </div>
                     </div>
                     <div class="row">
@@ -21,7 +21,7 @@
                 </ion-item>
                 <div ng-repeat="leg in ['outbound','return']">
                     <div class="info-container">
-                        <h4 style='margin-left:10px;margin-top:5px;margin-bottom:5px;'>{{leg}}</h4>
+                        <h4 style='margin-left:10px;margin-top:5px;margin-bottom:5px;'>{{titleText(leg)}}</h4>
                     </div>
                     <ion-item ng-repeat="flight in flightList[leg]">
                         <div class="row">
@@ -73,7 +73,7 @@
                             <img src="<%= image_url('TimeTravelDark.jpg') %>" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
                             <div class='warp-info align-center'>
                                 <h3>No more waiting for prices to drop!</h3><br>
-                                <p>Let us do the work for you. Buy your flights now at Hopper's predicted future price and we'll complete the booking when the price drops.</p><br>
+                                <p>We're confident in our predictions. Buy your flights now at Hopper's predicted future price and we'll complete the booking when the price drops.</p><br>
                                 <p>You won't find these prices anywhere else!</p>
                             </div>
                         </ion-slide>
@@ -81,16 +81,15 @@
                             <img src="<%= image_url('BunnyTrip.jpg') %>" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
                             <div class='warp-info align-center'>
                                 <h3>Pack your bags.</h3><br>
-                                <p>We will finalize your flight at least 2 weeks before departure. But don't worry, your price and flight is fully guarenteed.</p><br>
-                                <p>It's also fully changeable and refundable until booking!</p>
+                                <p>We will finalize your flight and send over full travel details at least one month before departure. But don't worry, your price and travel dates are fully guarenteed.</p><br>
+                                <p>Your flight is also fully refundable!</p>
                             </div>
                         </ion-slide>
                         <ion-slide>
                             <img src="<%= image_url('TravelAgency.jpg') %>" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
                             <div class='warp-info align-center'>
                                 <h3>We're here to help.</h3><br>
-                                <p>Does this sound too good to be true? Well we agree, but it is true! If you have any questions don't hesitate to reach out to us.</p><br>
-                                <p>Email our timewarp specialist at josh@hopper.com.</p>
+                                <p>Feel free to reach out to us with any questions. Email our timewarp specialist at josh@hopper.com.</p><br>
                             </div>
                         </ion-slide>
                     </ion-slide-box>

@@ -14,11 +14,11 @@ angular.module('flights', [])
         })
     };
 
-    this.tiers = [{'type':'morning','title':'One Stop Flights Leaving in the Morning','description':'You will be booked on a flight departing between 5:00am and 12:00pm. One stop or less. No red eyes.'},
-      {'type':'afternoon','title':'One Stop Flights Leaving in the Afternoon or Evening','description':'You will be booked on a flight Departing between 12:00pm and 10:00pm. One stop or less. No red eyes.'},
-      {'type':'anytime','title':'One Stop Flights Leaving Anytime','description':'You will be booked on a flight departing anytime during the day. One stop or less. No red eyes.'},
-      {'type':'anytype','title':'Anything on Your Dates','description':'You will be booked on a flight Departing anytime. Two stops or less, with the possibility of red-eyes.'},
-      {'type':'whatever','title':'Anything Goes','description':'You will be booked on a flight Departing +/- 3 days of your dates. Includes direct flights, flights with stops, and some red-eyes and overnight flights.'}
+    this.tiers = [{'type':'morning','title':'Nonstop flights leaving in the morning','description':'You will be booked on a nonstop flight departing on your dates between 5:00am and 12:00pm (noon). No budget airlines.'},
+      {'type':'afternoon','title':'Nonstop flights leaving in the afternoon or evening','description':'You will be booked on a nonstop flight Departing between 12:00pm (noon) and 10:00pm. No budget airlines or red-eye flights.'},
+      {'type':'anytime','title':'One stop or less flights leaving anytime','description':'You will be booked on a nonstop or one-stop flight departing anytime on your dates between 5:00am and 10:00pm. No budget airlines, long layovers or red-eye flights.'},
+      {'type':'anytype','title':'Any flights on your dates','description':'You will be booked on a flight with up to two stops departing anytime on your dates. No long layovers but with the possibility of low-cost carriers or red-eye flights.'},
+      {'type':'whatever','title':'Any flights within +/- 3 days of your dates','description':'You will be booked on a flight departing within +/- 3 days of your dates. This includes direct flights, flights with stops, low-cost carriers and possible red-eye flights, but no long layovers.'}
     ]
 
     this.tierMessage = function(tier) {

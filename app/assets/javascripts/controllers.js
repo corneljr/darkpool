@@ -381,5 +381,13 @@ function ($scope, $stateParams, $window, Flights, $ionicModal, $state) {
     $scope.slideChanged = function(index) {
       $scope.slideIndex = index;
     };
+
+    $scope.titleText = function(leg) {
+      if(leg == 'outbound') {
+        return 'Departure flight';
+      } else {
+        return 'Return flight';
+      };
+    }
 }])
  

@@ -8,8 +8,8 @@
             <div class="timewarp-image">
                 <img src="<%= image_url('TimeTravelDark.jpg') %>">
                 <div class="timewarp-info">
-                    <h4>Timewarp! Save up to {{flightDetails['whatever']['currentPrice'] - flightDetails['whatever']['tierPrice'] | currency:"$":0}} per ticket!</h4>
-                    <p>Reserve your trip today, at the low prices of the future. Fully guaranteed and refundable.</p>
+                    <h4>TimeWarp! Save up to {{flightDetails['whatever']['currentPrice'] - flightDetails['whatever']['tierPrice'] | currency:"$":0}} per ticket!</h4>
+                    <p>No need to wait! Book your flight today at the low prices of the future. Fully guarenteed and refundable.</p>
                     <p>
                         <a style='color:white;' ng-click="modal.show()">How does this work?</a>
                     </p>
@@ -18,8 +18,8 @@
         </div>
         <div>
             <div class="info-container">
-                <h4 style='margin-bottom:5px;margin-top:5px;'>Choose your flight type</h4>
-                <p style='font-size:14px;color:#666;margin-bottom:5px;'>The more flexible you can be, the cheaper your flights.</p>
+                <h4 style='margin-bottom:5px;margin-top:5px;'>Choose your flight type:</h4>
+                <p style='font-size:14px;color:#666;margin-bottom:5px;'>You'll get the cheapest flights by being flexible.</p>
             </div>
         </div>
         <ion-list id="timewarp-list2">
@@ -27,8 +27,8 @@
                 <ion-item ng-click="flightBreakdown(&quot;{{tier.type}}&quot;)" ng-repeat="tier in tiers">
                     <div class="row">
                         <div class="col align-left">
-                            <p class="discount">
-                                <strike>{{flightDetails[tier.type]['currentPrice'] | currency:"$":0}}</strike>&nbsp;Save {{flightDetails[tier.type]['currentPrice'] - flightDetails[tier.type]['tierPrice'] | currency:"$":0}}</p>
+                            <h5 class="discount">
+                                <strike style='color:red;'>{{flightDetails[tier.type]['currentPrice'] | currency:"$":0}}</strike>&nbsp;Save {{flightDetails[tier.type]['currentPrice'] - flightDetails[tier.type]['tierPrice'] | currency:"$":0}}</h5>
                         </div>
                         <div class="col align-right">
                             <p class="price">{{flightDetails[tier.type]['tierPrice'] | currency:"$":0}} RT</p>
@@ -59,7 +59,7 @@
                                 <img src="<%= image_url('TimeTravelDark.jpg') %>" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
                                 <div class='warp-info align-center'>
                                     <h3>No more waiting for prices to drop!</h3><br>
-                                    <p>Let us do the work for you. Buy your flights now at Hopper's predicted future price and we'll complete the booking when the price drops.</p><br>
+                                    <p>We're confident in our predictions. Buy your flights now at Hopper's predicted future price and we'll complete the booking when the price drops.</p><br>
                                     <p>You won't find these prices anywhere else!</p>
                                 </div>
                             </ion-slide>
@@ -67,16 +67,15 @@
                                 <img src="<%= image_url('BunnyTrip.jpg') %>" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
                                 <div class='warp-info align-center'>
                                     <h3>Pack your bags.</h3><br>
-                                    <p>We will finalize your flight at least 2 weeks before departure. But don't worry, your price and flight is fully guarenteed.</p><br>
-                                    <p>It's also fully changeable and refundable until booking!</p>
+                                    <p>We will finalize your flight and send over full travel details at least one month before departure. But don't worry, your price and travel dates are fully guarenteed.</p><br>
+                                    <p>Your flight is also fully refundable!</p>
                                 </div>
                             </ion-slide>
                             <ion-slide>
                                 <img src="<%= image_url('TravelAgency.jpg') %>" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
                                 <div class='warp-info align-center'>
                                     <h3>We're here to help.</h3><br>
-                                    <p>Does this sound too good to be true? Well we agree, but it is true! If you have any questions don't hesitate to reach out to us.</p><br>
-                                    <p>Email our timewarp specialist at josh@hopper.com.</p>
+                                    <p>Feel free to reach out to us with any questions. Email our timewarp specialist at josh@hopper.com.</p><br>
                                 </div>
                             </ion-slide>
                         </ion-slide-box>
