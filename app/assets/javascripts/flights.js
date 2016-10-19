@@ -25,7 +25,7 @@ angular.module('flights', [])
       array = this.tiers
       for(var i = 0; i < array.length; i+=1) {
         if (array[i]['type'] === tier) {
-          return array[i]['title'];
+          return array[i]['description'];
         }
       }
 

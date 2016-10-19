@@ -77,7 +77,6 @@ function ($scope,$stateParams,$timeout,Flights, $ionicModal, $state) {
 
     Flights.tripDetails = {'origin': $scope.getParameterByName('origin'),'destination': $scope.getParameterByName('destination'), 'departureDate': $scope.getParameterByName('departure'), 'returnDate': $scope.getParameterByName('return')}
     $scope.tripDetails = Flights.tripDetails;
-
     promise = Flights.getFlights($scope.tripDetails.origin,$scope.tripDetails.destination,$scope.tripDetails.departureDate,$scope.tripDetails.returnDate);
     promise.then( function(response){
       Flights.flightDetails = response.data;
@@ -133,13 +132,15 @@ function ($scope, $stateParams, $state, $window,TravellerService, Flights, $ioni
         'email':''
     }
     
-    $scope.addTraveller = function(){
+    $scope.addTraveller = function(travellerForm){
         if (TravellerService.travellers) {
             TravellerService.travellers.push($scope.new_traveller);    
         } else {
             TravellerService.travellers = [$scope.new_traveller];
         }
-        
+        console.log(travellerForm)
+        travellerForm.$setPristine();
+        console.log(travellerForm)
         $scope.savedTravellers = TravellerService.travellers;
         $scope.travellersCount = $scope.savedTravellers.length;
         $scope.closeModal();
@@ -293,7 +294,7 @@ function ($scope, $state, $window, $stateParams, TravellerService, $ionicModal, 
     $scope.tripType = Flights.tierMessage($scope.flightType)
     
     $scope.confirmation = function() {
-        promise = PaymentService.chargeCard(PaymentService.payment_token,$scope.totalCost)
+        promise = PaymentService.chargeCard(PaymentService.payment_token,$scope.totalCost, $scope.savedTravellers, $scope.tripDetails['origin'], $scope.tripDetails['destination'], $scope.tripDetails['departureDate'], $scope.tripDetails['returnDate'], $scope.flightType, $scope.flightList.tierPrice)
         promise.then( function(response){
           if (response['data']['success']) {
             $scope.openModal();

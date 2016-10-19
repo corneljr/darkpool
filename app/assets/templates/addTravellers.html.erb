@@ -75,7 +75,7 @@
                         <div class='row'>
                             <div class='col' style='padding:0;'>
                                 <label class="item item-input">
-                                    <input name='email' type="email" placeholder="Email" ng-model='new_traveller.email' required>
+                                    <input name='email' type="email" placeholder="Email" ng-model='new_traveller.email' ng-model-options="{ updateOn: 'blur' }" required>
                                 </label>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                     </form>
-                    <button class='button button-positive button-block fixed-to-bottom' style='border-radius:0px;' ng-if='!travellerForm.$invalid' ng-click='addTraveller()'>Add Traveler</button>
+                    <button class='button button-positive button-block fixed-to-bottom' style='border-radius:0px;' ng-if='!travellerForm.$invalid' ng-click='addTraveller(travellerForm)'>Add Traveler</button>
                     </ion-content>
                   </ion-modal-view>
             </script>
