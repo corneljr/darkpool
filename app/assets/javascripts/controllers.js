@@ -6,7 +6,8 @@ angular.module('app.controllers', [])
 function ($scope,$stateParams,$timeout,Flights, $ionicModal, $state) {
     $scope.dataLoaded = true
     $scope.flightDetails = {}
-    $scope.tiers = Flights.tiers
+    $scope.tiers = Flights.tiers.slice(0,4)
+    $scope.whateverTier = Flights.tiers[4]
 
     $scope.bunnyIndex = 1
     $scope.bunnyUrl = ''

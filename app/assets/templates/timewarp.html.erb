@@ -44,6 +44,30 @@
                             <img height='30' width='auto' src={{airline}} ng-repeat="airline in flightDetails[tier.type]['airlines']" style='margin-right:10px;'>
                         </div>
                     </div>
+                </ion-item>
+                <div class="info-container">
+                    <p style='margin-bottom:5px;margin-top:5px;'>If you're flexible and want a really great deal.</p>
+                </div>
+                <ion-item ng-click="flightBreakdown('whatever')">
+                    <div class="row">
+                        <div class="col align-left">
+                            <h5 class="discount">
+                                <strike style='color:red;'>{{flightDetails['whatever']['currentPrice'] | currency:"$":0}}</strike>&nbsp;Save {{flightDetails['whatever']['currentPrice'] - flightDetails['whatever']['tierPrice'] | currency:"$":0}}</h5>
+                        </div>
+                        <div class="col align-right">
+                            <p class="price">{{flightDetails['whatever']['tierPrice'] | currency:"$":0}} RT</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col type-info-container">
+                            <h2>{{whateverTier.title}}</h2>
+                            <p style="white-space:normal">{{whateverTier.description}}</p>
+                        </div>
+                    </div>
+                    <div class='row'>
+                            <img height='30' width='auto' src={{airline}} ng-repeat="airline in flightDetails['whatever']['airlines']" style='margin-right:10px;'>
+                        </div>
+                    </div>
                 </ion-item>              
             </div>
         </ion-list>
