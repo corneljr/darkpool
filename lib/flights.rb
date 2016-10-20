@@ -84,6 +84,8 @@ module Flights
 
 				airline_logo = ActionController::Base.helpers.image_url("#{flight["primary_carrier"]}_icon.png")
 
+				flight_info['airline_image_url'] = airline_logo
+
 				# check if there are long layovers/overnights
 				tester = test_for_warnings(flight)
 

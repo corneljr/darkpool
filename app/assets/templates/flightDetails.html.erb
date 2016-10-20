@@ -25,10 +25,13 @@
                     </div>
                     <ion-item ng-repeat="flight in flightList[leg]">
                         <div class="row">
-                            <div class="col">
-                                <p>{{flight.airline}}</p>
+                            <div class='col-10 col-center'>
+                                <img height='25' width='auto' src={{flight.airline_image_url}}>
                             </div>
-                            <div class="col">
+                            <div class="col col-center">
+                                <p class='align-left' style='display:inline;'>{{flight.airline}}</p>
+                            </div>
+                            <div class="col col-center">
                                 <p class="align-right" style="color:black;">{{flight.departureTime}} - {{flight.arrivalTime}}</p>
                             </div>
                         </div>

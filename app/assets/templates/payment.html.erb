@@ -10,7 +10,7 @@
             <p ng-repeat='error in formErrors'>{{error.message}}</p>
         </div>
         <form class="list" name="paymentForm">
-            <div class="row">
+            <div class="row" style='padding-bottom:15px;'>
                 <div class="col" style='padding-left:0;'>
                     <i class="ion-card" style="position:absolute;top:30px;"></i>
                     <label class="item item-input">
@@ -18,7 +18,7 @@
                     </label>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style='padding-bottom:15px;'>
                 <div class="col-60">
                     <label class="item item-input">
                         <input name='expiry' type="text" placeholder="MM/YYYY" ng-model="cardData.expiry" ng-pattern='/^[0-9]{2}\/20[0-9]{2}$/' ng-model-options="{ updateOn: 'blur' }" required>
@@ -30,7 +30,7 @@
                     </label>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style='padding-bottom:15px;'>
                 <div class="col" style='padding-left:0;'>
                     <label class="item item-select">
                         <span class="input-label"></span>
@@ -38,14 +38,14 @@
                     </label>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style='padding-bottom:15px;'>
                 <div class="col" style='padding-left:0;'>
                     <label class="item item-input">
                         <input name='zip' type="text" placeholder="Billing ZIP/Postal Code" ng-model="cardData.zipCode" ng-pattern='/(^\d{5}(-\d{4})?$)|(^[A-Za-z]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)/' ng-model-options="{ updateOn: 'blur' }" required>
                     </label>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style='padding-bottom:15px;'>
                 <div class="col" style='padding-left:0;'>
                     <label class="item item-input">
                         <input name='name' type="text" placeholder="Cardholder Name" ng-model="cardData.name" ng-model-options="{ updateOn: 'blur' }" required>
