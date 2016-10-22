@@ -9827,31 +9827,30 @@ a.button {
   padding-bottom: 10px; }
 
 .timewarp-image {
-  position: relative;
-  height: 190px;
-  width: 100%;
-  background-color: #1a191d;
-  overflow: hidden; }
-  .timewarp-image img {
-    bottom: -50px;
-    left: 120px;
-    position: absolute;
-    display: block;
-    width: 125%;
-    height: auto; }
-  .timewarp-image .timewarp-info {
-    position: relative;
-    top: 20px;
-    left: 10px;
-    color: white !important; }
-    .timewarp-image .timewarp-info h4 {
-      color: white !important; }
-    .timewarp-image .timewarp-info p {
-      padding-top:12px;
-      font-size:16px;
-      width: 60%; }
-    .timewarp-image .timewarp-info a {
-      text-decoration: underline; }
+  position:relative;
+  left:-75px;
+  top:-25px;
+  width: 250%; }
+
+.home-info {
+  text-align:center;
+  padding: 25px 50px;
+  height:100%;
+}
+
+.home-info h4 {
+  font-size:20px;
+  color:white !important;
+}
+
+.home-info h5 {
+  color:white !important;
+}
+
+.home-text {
+  position:relative;
+  top:-40px;
+}
 
 .warp-info {
   padding: 30px 15px; }
@@ -9929,4 +9928,46 @@ a.button {
 
 .form-error-message {
   color:red;
+}
+
+.tier_text {
+  position:relative;
+  top:10px;
+  padding:10px;
+}
+
+.tier_text h2 {
+  font-weight:500;
+}
+
+.tier_text h4 {
+  font-weight:normal;
+}
+
+.morning_info_container {
+  background-image: url('<%= image_url("morning_tier.jpg") %>');
+  background-repeat:no-repeat;
+  background-size: cover;
+  height: 190px;
+}
+
+.afternoon_info_container {
+  background-image: url('<%= image_url("afternoon_tier.jpg") %>');
+  background-repeat:no-repeat;
+  background-size: cover;
+  height: 190px;
+}
+
+.morning_tier_header {
+  background-image: url('<%= image_url("morning_tier.jpg") %>');
+  background-repeat:no-repeat;
+  background-size: cover;
+  height: 190px;
+}
+
+.afternoon_tier_header {
+  background-image: url('<%= image_url("afternoon_tier.jpg") %>');
+  background-repeat:no-repeat;
+  background-size: cover;
+  height: 190px;
 }

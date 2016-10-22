@@ -8,6 +8,12 @@ angular.module('app.routes', [])
   // Each state's controller can be found in controllers.js
   $stateProvider
 
+  .state('home', {
+    url: '/home',
+    templateUrl: 'home.html',
+    controller: 'homeCtrl'
+  })
+
   .state('timewarp', {
     url: '/timewarp',
     templateUrl: 'timewarp.html',
@@ -39,7 +45,7 @@ angular.module('app.routes', [])
     controller: 'flightDetailsCtrl'
   })
 
-$urlRouterProvider.otherwise('/timewarp')
+$urlRouterProvider.otherwise('/home')
 
   
 

@@ -14,18 +14,18 @@ angular.module('flights', [])
         })
     };
 
-    this.tiers = [{'type':'anytype','title':'Any flights on your dates','description':'You will be booked on a flight with up to two stops departing anytime on your dates. No long layovers but with the possibility of low-cost carriers or red-eye flights.'},
-      {'type':'anytime','title':'One stop or less flights leaving anytime','description':'You will be booked on a nonstop or one-stop flight departing anytime on your dates between 5:00am and 10:00pm. No budget airlines, long layovers or red-eye flights.'},
-      {'type':'morning','title':'Nonstop flights leaving in the morning','description':'You will be booked on a nonstop flight departing on your dates between 5:00am and 12:00pm (noon). No budget airlines.'},
-      {'type':'afternoon','title':'Nonstop flights leaving in the afternoon or evening','description':'You will be booked on a nonstop flight departing on your dates between 12:00pm (noon) and 10:00pm. No budget airlines or red-eye flights.'},
-      {'type':'whatever','title':'Any flights within +/- 3 days of your dates','description':'You will be booked on a flight departing within +/- 3 days of your dates with the same trip duration. This includes direct flights, flights with stops, low-cost carriers and possible red-eye flights, but no long layovers.'}
+    this.tiers = [{'type':'anytype','title':'Any flights on your dates','description':'You will be booked on a flight with up to two stops departing anytime on your dates.'},
+      {'type':'anytime','title':'One stop or less flights leaving anytime','description':'Nonstop or one-stop flights departing anytime during the day.'},
+      {'type':'morning','title':'Early Bird Special','description':'Nonstop flights leaving before noon.'},
+      {'type':'afternoon','title':'Nonstop flights leaving in the afternoon or evening','description':'Nonstop flights leaving in the afternoon or evening.'},
+      {'type':'whatever','title':'Any flights within +/- 3 days of your dates','description':"If you're really flexible and want a great deal."}
     ]
 
-    this.tierMessage = function(tier) {
+    this.tierDetails = function(tier) {
       array = this.tiers
       for(var i = 0; i < array.length; i+=1) {
         if (array[i]['type'] === tier) {
-          return array[i]['description'];
+          return array[i];
         }
       }
 

@@ -1,13 +1,13 @@
 angular.module('app.controllers', [])
-  
-.controller('timewarpCtrl', ['$scope','$stateParams','$timeout','Flights', '$ionicModal', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+
+.controller('homeCtrl', ['$scope', '$stateParams', '$timeout', '$window','Flights', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope,$stateParams,$timeout,Flights, $ionicModal, $state) {
-    $scope.dataLoaded = true
-    $scope.flightDetails = {}
-    $scope.tiers = Flights.tiers.slice(0,4)
-    $scope.whateverTier = Flights.tiers[4]
+function ($scope, $stateParams, $timeout, $window, Flights, $state) {
+    $scope.dataLoaded = false;
+    $scope.letsDoThis = function() {
+        $state.go('timewarp',{'type':$scope.flightType});
+    }
 
     $scope.bunnyIndex = 1
     $scope.bunnyUrl = ''
@@ -20,18 +20,46 @@ function ($scope,$stateParams,$timeout,Flights, $ionicModal, $state) {
       }
       string = "image-" + $scope.bunnyIndex
       $scope.bunnyUrl = document.getElementById('image-data').dataset[string];
-      $timeout(runBunny,25);
+      $timeout(runBunny,50);
     }
 
-    $timeout(runBunny, 25);
+    $timeout(runBunny, 50);
 
-    $scope.arrayToString = function(string){
-        if (string) {
-          return string.join(", ");  
-        } else {
-          return 'American Airlines, Delta, Jet Blue';
-        }
+    $scope.getParameterByName = function(name) {
+      url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
     };
+
+    Flights.tripDetails = {'origin': $scope.getParameterByName('origin'),'destination': $scope.getParameterByName('destination'), 'departureDate': $scope.getParameterByName('departure'), 'returnDate': $scope.getParameterByName('return')}
+    $scope.tripDetails = Flights.tripDetails;
+    promise = Flights.getFlights($scope.tripDetails.origin,$scope.tripDetails.destination,$scope.tripDetails.departureDate,$scope.tripDetails.returnDate);
+    promise.then( function(response){
+      Flights.flightDetails = response.data;
+      $scope.flightDetails = Flights.flightDetails;
+      $scope.dataLoaded = true;
+    }, function(error_response) {
+      console.log(error_response);
+    });
+}])
+
+  
+.controller('timewarpCtrl', ['$scope','$window','$stateParams','$timeout','Flights', '$ionicModal', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope,$window,$stateParams,$timeout,Flights, $ionicModal, $state) {
+
+    if (!Flights.flightDetails) {
+      $window.location = $window.location.origin + $window.location.search
+    }
+
+    $scope.flightDetails = Flights.flightDetails;
+    $scope.tripDetails = Flights.tripDetails;
+    $scope.tiers = Flights.tiers.slice(1,5)
 
     $scope.getParameterByName = function(name) {
       url = window.location.href;
@@ -75,18 +103,6 @@ function ($scope,$stateParams,$timeout,Flights, $ionicModal, $state) {
     $scope.slideChanged = function(index) {
       $scope.slideIndex = index;
     };
-
-    Flights.tripDetails = {'origin': $scope.getParameterByName('origin'),'destination': $scope.getParameterByName('destination'), 'departureDate': $scope.getParameterByName('departure'), 'returnDate': $scope.getParameterByName('return')}
-    $scope.tripDetails = Flights.tripDetails;
-    promise = Flights.getFlights($scope.tripDetails.origin,$scope.tripDetails.destination,$scope.tripDetails.departureDate,$scope.tripDetails.returnDate);
-    promise.then( function(response){
-      Flights.flightDetails = response.data;
-      $scope.flightDetails = Flights.flightDetails;
-      $scope.dataLoaded = false;
-      document.getElementsByTagName('ion-nav-bar')[0].classList.remove('hide');
-    }, function(error_response) {
-      console.log(error_response);
-    });
 }])
    
 .controller('addTravellersCtrl', ['$scope', '$stateParams', '$state', '$window','TravellerService', 'Flights', '$ionicModal', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -292,7 +308,7 @@ function ($scope, $state, $window, $stateParams, TravellerService, $ionicModal, 
     $scope.tripDetails = Flights.tripDetails;
     $scope.token = PaymentService.payment_token;
     $scope.card = PaymentService.card_number;
-    $scope.tripType = Flights.tierMessage($scope.flightType)
+    $scope.tripType = Flights.tierDetails($scope.flightType)
     
     $scope.confirmation = function() {
         promise = PaymentService.chargeCard(PaymentService.payment_token,$scope.totalCost, $scope.savedTravellers, $scope.tripDetails['origin'], $scope.tripDetails['destination'], $scope.tripDetails['departureDate'], $scope.tripDetails['returnDate'], $scope.flightType, $scope.flightList.tierPrice)
@@ -350,6 +366,7 @@ function ($scope, $stateParams, $window, Flights, $ionicModal, $state) {
     $scope.flightDetails = Flights.flightDetails
     $scope.flightList = Flights.flightDetails[$scope.flightType];
     $scope.tripDetails = Flights.tripDetails;
+    $scope.tierDetails = Flights.tierDetails($scope.flightType)
     
     $scope.bookNow = function() {
         $state.go('addTravellers',{'type':$scope.flightType});
