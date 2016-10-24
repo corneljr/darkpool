@@ -90,25 +90,25 @@ module Flights
 				tester = test_for_warnings(flight)
 
 				flight_list['anytype']["#{leg}"] << flight_info	
-				flight_list['anytype']['airlines'] << airline_logo unless flight_list['anytype']['airlines'].include?(airline_logo)
+				flight_list['anytype']['airlines'] << flight_info['airline'] unless flight_list['anytype']['airlines'].include?(flight_info['airline'])
 				next if tester
 
 				if flight_info['stops'] == 0
 					flight_list['morning']["#{leg}"] << flight_info if flight_info['departureTime'].include?('am')
-					flight_list['morning']['airlines'] << airline_logo if flight_info['departureTime'].include?('am') && !flight_list['morning']['airlines'].include?(airline_logo)
+					flight_list['morning']['airlines'] << flight_info['airline'] if flight_info['departureTime'].include?('am') && !flight_list['morning']['airlines'].include?(flight_info['airline'])
 
 					flight_list['afternoon']["#{leg}"] << flight_info if flight_info['departureTime'].include?('pm')
-					flight_list['afternoon']['airlines'] << airline_logo if flight_info['departureTime'].include?('pm') && !flight_list['afternoon']['airlines'].include?(airline_logo)
+					flight_list['afternoon']['airlines'] << flight_info['airline'] if flight_info['departureTime'].include?('pm') && !flight_list['afternoon']['airlines'].include?(flight_info['airline'])
 				end
 
 				if flight_info['stops'] < 2
 					flight_list['anytime']["#{leg}"] << flight_info
-					flight_list['anytime']['airlines'] << airline_logo unless flight_list['anytime']['airlines'].include?(airline_logo)
+					flight_list['anytime']['airlines'] << flight_info['airline'] unless flight_list['anytime']['airlines'].include?(flight_info['airline'])
 				end
 
 				# leave this here for now and figure out how to handle 
 				flight_list['whatever']["#{leg}"] << flight_info
-				flight_list['whatever']['airlines'] << airline_logo unless flight_list['whatever']['airlines'].include?(airline_logo)
+				flight_list['whatever']['airlines'] << flight_info['airline'] unless flight_list['whatever']['airlines'].include?(flight_info['airline'])
 			end
 		end
 

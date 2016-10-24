@@ -14,11 +14,11 @@ angular.module('flights', [])
         })
     };
 
-    this.tiers = [{'type':'anytype','title':'Any flights on your dates','description':'You will be booked on a flight with up to two stops departing anytime on your dates.'},
-      {'type':'anytime','title':'One stop or less flights leaving anytime','description':'Nonstop or one-stop flights departing anytime during the day.'},
-      {'type':'morning','title':'Early Bird Special','description':'Nonstop flights leaving before noon.'},
-      {'type':'afternoon','title':'Nonstop flights leaving in the afternoon or evening','description':'Nonstop flights leaving in the afternoon or evening.'},
-      {'type':'whatever','title':'Any flights within +/- 3 days of your dates','description':"If you're really flexible and want a great deal."}
+    this.tiers = [{'type':'anytype','title':'Any flights on your dates','description':'You will be booked on a flight with up to two stops departing anytime on your dates.','stops':'One stop or direct','timeframe':'Anytime on your dates'},
+      {'type':'anytime','title':'Flexible Traveller','description':'One stop flights departing anytime during the day.','stops':'One stop or direct','timeframe':'Anytime on your dates'},
+      {'type':'morning','title':'Early Bird','description':'Nonstop flights leaving before noon.','stops':'Nonstop','timeframe':'Between 6:00a and 11:55a'},
+      {'type':'afternoon','title':'Matinee','description':'Nonstop flights leaving in the afternoon or evening.','stops':'Nonstop','timeframe':'Between 12:00p and 10:00p'},
+      {'type':'whatever','title':'Super Saver','description':"Anything +/- 3 days of your dates. Same trip length.", 'stops':'One stop or direct.', 'timeframe':'Anytime during the day, +/- 3 days.'}
     ]
 
     this.tierDetails = function(tier) {

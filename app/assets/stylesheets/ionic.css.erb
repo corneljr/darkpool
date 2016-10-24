@@ -9944,30 +9944,47 @@ a.button {
   font-weight:normal;
 }
 
-.morning_info_container {
+
+.morning_background_image {
   background-image: url('<%= image_url("morning_tier.jpg") %>');
   background-repeat:no-repeat;
   background-size: cover;
-  height: 190px;
 }
 
-.afternoon_info_container {
+.afternoon_background_image {
   background-image: url('<%= image_url("afternoon_tier.jpg") %>');
   background-repeat:no-repeat;
   background-size: cover;
+}
+
+.anytime_background_image {
+  background-image: url('<%= image_url("anytime_tier.jpg") %>');
+  background-repeat:no-repeat;
+  background-size: cover;
+}
+
+.whatever_background_image {
+  background-image: url('<%= image_url("whatever_tier.jpg") %>');
+  background-repeat:no-repeat;
+  background-size: 150%;
+  background-position-x: -140px;
+  background-position-y: -10px;
+}
+
+.tier_info_container {
   height: 190px;
 }
 
-.morning_tier_header {
-  background-image: url('<%= image_url("morning_tier.jpg") %>');
-  background-repeat:no-repeat;
-  background-size: cover;
+.tier_header {
   height: 190px;
+  padding-left:20px;
+  padding-top:30px;
 }
 
-.afternoon_tier_header {
-  background-image: url('<%= image_url("afternoon_tier.jpg") %>');
-  background-repeat:no-repeat;
-  background-size: cover;
-  height: 190px;
+.black {
+  color:black !important;
+}
+
+.flight_detail_list p {
+  font-size: 16px;
 }
