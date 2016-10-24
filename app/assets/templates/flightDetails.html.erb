@@ -23,11 +23,6 @@
                         <p class='align-right black'>{{tripDetails.returnDate | date:'MMM d, yyyy'}}</p>
                     </div>
                 </div>
-                <div class='row' ng-if='flightType == "whatever"'>
-                    <div class='col'>
-                        <p>*Same trip duration as your chosen dates</p>
-                    </div>
-                </div>
             </ion-item>
             <ion-item>
                 <div class='row'>
@@ -56,7 +51,7 @@
                         <p>Departure Time</p>
                     </div>
                     <div class='col'>
-                        <p class='align-right black'>{{tierDetails['timeframe']}}</p>
+                        <p class='align-right black' style='white-space:normal;'>{{tierDetails['timeframe']}}</p>
                     </div>
                 </div>
             </ion-item>
@@ -87,7 +82,7 @@
                     </div>
                     <div class='col-80'>
                         <p class='align-right black' style='white-space:normal;'>
-                            You will receive your ticket at least a month before departure. It is 100% guaranteed and your ticket is fully refundable.
+                            You will receive your ticket at least a month before departure. It is 100% guaranteed and your ticket is fully refundable. <span ng-if="flightType == 'whatever'">Your flight will depart +/- 3 days of the above dates and the trip length will remain the same.</span>
                         </p>
                     </div>
                 </div>

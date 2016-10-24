@@ -59,6 +59,8 @@ function ($scope,$window,$stateParams,$timeout,Flights, $ionicModal, $state) {
       $window.location = $window.location.origin + $window.location.search
     }
 
+    mixpanel.track("timewarp-completed_onboarding")
+
     $scope.flightDetails = Flights.flightDetails;
     $scope.tripDetails = Flights.tripDetails;
     $scope.tiers = Flights.tiers.slice(1,5)
@@ -80,6 +82,7 @@ function ($scope,$window,$stateParams,$timeout,Flights, $ionicModal, $state) {
         $scope.modal = modal;
       });
       $scope.openModal = function() {
+        mixpanel.track("timewarp-viewed_howitworks")
         $scope.modal.show();
       };
       $scope.closeModal = function() {
@@ -129,8 +132,6 @@ function ($scope, $stateParams, $state, $window,TravellerService, Flights, $ioni
         return 0
       }
     }
-
-    mixpanel.track("timewarp-confirm_tier",{'tier_type':$scope.flightType})
     
     $scope.genders = [
         {
