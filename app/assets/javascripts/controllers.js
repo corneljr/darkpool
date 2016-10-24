@@ -375,7 +375,10 @@ function ($scope, $stateParams, $window, Flights, $ionicModal, $state) {
     $scope.flightDetails = Flights.flightDetails
     $scope.flightList = Flights.flightDetails[$scope.flightType];
     $scope.tripDetails = Flights.tripDetails;
-    $scope.tierDetails = Flights.tierDetails($scope.flightType)
+    $scope.tierDetails = Flights.tierDetails($scope.flightType);
+    console.log($scope.flightList['outbound'])
+    $scope.maxDuration = Math.max.apply(Math,$scope.flightList['outbound'].map(function(f){return f['duration_minutes']}));
+    $scope.maxDurationString = parseInt($scope.maxDuration / 60) + "h " + $scope.maxDuration % 60 + "m"
 
     var savings_amount = $scope.flightDetails[$scope.flightType]['currentPrice'] - $scope.flightDetails[$scope.flightType]['tierPrice']
     mixpanel.track("timewarp-selected_tier",{'tier_type':$scope.flightType, 'savings_amount': savings_amount})

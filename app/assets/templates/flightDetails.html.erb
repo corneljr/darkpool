@@ -63,20 +63,20 @@
             <ion-item>
                 <div class='row'>
                     <div class='col'>
-                        <p>Flight Time</p>
+                        <p>Max Travel Time</p>
                     </div>
                     <div class='col'>
-                        <p class='align-right black'>Up to 6 hours</p>
+                        <p class='align-right black'>{{maxDurationString}}</p>
                     </div>
                 </div>
             </ion-item>
             <ion-item>
                 <div class='row'>
                     <div class='col'>
-                        <p>Airlines</p>
+                        <p>One of these Airlines</p>
                     </div>
                     <div class='col'>
-                        <p class='align-right black'>{{flightDetails[flightType]['airlines'].join(', ')}}</p>
+                        <p class='align-right black' style='white-space:normal;'>{{flightDetails[flightType]['airlines'].join(', ')}}</p>
                     </div>
                 </div>
             </ion-item>
@@ -87,7 +87,7 @@
                     </div>
                     <div class='col-80'>
                         <p class='align-right black' style='white-space:normal;'>
-                            Your flight will be finalized at least a month before departure. It is 100% guarenteed and fully refundable.
+                            You will receive your ticket at least a month before departure. It is 100% guarenteed and your ticket is fully refundable.
                         </p>
                     </div>
                 </div>

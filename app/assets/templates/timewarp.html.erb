@@ -10,13 +10,13 @@
             <ion-item ng-repeat="tier in tiers" style='padding:0px'>
                 <div class='{{tier.type}}_background_image tier_info_container'>
                     <div class='tier_text row'>
-                        <div class='col-50'>
-                            <h2>{{tier.title}}</h2>
+                        <div class='col-60'>
+                            <h2 style='white-space:normal;'>{{tier.title}}</h2>
                             <h4 style='white-space:normal;'>{{tier.description}}</h4>
                             <h4 class="discount">
                                 <strike style='color:red;'>{{flightDetails[tier.type]['currentPrice'] | currency:"$":0}}</strike>&nbsp;Save {{flightDetails[tier.type]['currentPrice'] - flightDetails[tier.type]['tierPrice'] | currency:"$":0}}</h4>
                         </div>
-                        <div class='col-50' style='text-align:center;'>
+                        <div class='col-40 col-center'>
                             <button ng-click="flightBreakdown(&quot;{{tier.type}}&quot;)" class="button button-positive" style='padding:0px 25px;'>{{flightDetails[tier.type]['tierPrice'] | currency:"$":0}} RT</button>
                         </div>
                     </div>
@@ -42,8 +42,7 @@
                                 <img src="<%= image_url('TimeTravelDark.jpg') %>" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
                                 <div class='warp-info align-center'>
                                     <h3>No more waiting for prices to drop!</h3><br>
-                                    <p>We're confident in our predictions. Buy your flights now at Hopper's predicted future price and we'll complete the booking when the price drops.</p><br>
-                                    <p>You won't find these prices anywhere else!</p>
+                                    <p>We're confident in our predictions. Buy your flights now at the low price. You won't find these prices anywhere else!</p>
                                 </div>
                             </ion-slide>
                             <ion-slide>
@@ -58,7 +57,7 @@
                                 <img src="<%= image_url('TravelAgency.jpg') %>" width="100%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
                                 <div class='warp-info align-center'>
                                     <h3>We're here to help.</h3><br>
-                                    <p>Feel free to reach out to us with any questions. Email our timewarp specialist at josh@hopper.com.</p><br>
+                                    <p>Feel free to reach out to us with any questions. Email our TimeWarp specialist at josh@hopper.com.</p><br>
                                 </div>
                             </ion-slide>
                         </ion-slide-box>

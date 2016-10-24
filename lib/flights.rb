@@ -75,12 +75,15 @@ module Flights
 
 				duration = flight["#{leg}_duration"].to_i
 
+				flight_info['airline'] = data['carriers'][data['carriers'].find_index {|x| x['code'] == flight['primary_carrier']}]['name']
+				next if flight_info['airline'] == 'Frontier' || flight_info['airline'] == 'Spirit'
+
 				flight_info['duration'] = "#{duration / 60}h #{duration % 60}m"
+				flight_info['duration_minutes'] = duration
 				flight_info['departureDay'] = DateTime.strptime(departure_epoch_seconds.to_s,"%s").strftime("%b %-d")
 				flight_info['departureTime'] = DateTime.strptime(departure_epoch_seconds.to_s,"%s").strftime("%-l:%M%P")
 				flight_info['arrivalDay'] = DateTime.strptime(arrival_epoch_seconds.to_s,"%s").strftime("%b %-d")
 				flight_info['arrivalTime'] = DateTime.strptime(arrival_epoch_seconds.to_s,"%s").strftime("%-l:%M%P")
-				flight_info['airline'] = data['carriers'][data['carriers'].find_index {|x| x['code'] == flight['primary_carrier']}]['name']
 
 				airline_logo = ActionController::Base.helpers.image_url("#{flight["primary_carrier"]}_icon.png")
 
