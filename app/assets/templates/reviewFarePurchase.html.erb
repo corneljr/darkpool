@@ -13,7 +13,7 @@
         </div>
         <div class='info-container' style='padding:15px;'>
             <h4>{{flightDetails.origin}} to {{flightDetails.destination}}</h4>
-            <p>{{tripType}}</p>
+            <p>{{tripType['description']}}</p>
             <p>{{tripDetails.departureDate | date:'MMM d, yyyy'}} - {{tripDetails.returnDate | date:'MMM d, yyyy'}}</p>
         </div>
         <div class="row content-padding" ng-repeat="traveller in savedTravellers">

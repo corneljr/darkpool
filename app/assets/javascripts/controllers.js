@@ -42,6 +42,8 @@ function ($scope, $stateParams, $timeout, $window, Flights, $state) {
       Flights.flightDetails = response.data;
       $scope.flightDetails = Flights.flightDetails;
       $scope.dataLoaded = true;
+      mixpanel.register({"origin":$scope.flightDetails['origin'],"destination":$scope.flightDetails['destination'],"departure_date":$scope.flightDetails['departureDate'],"return_date":$scope.flightDetails['return_date']})
+      mixpanel.track("timewarp-launched_timewarp")
     }, function(error_response) {
       console.log(error_response);
     });
@@ -127,6 +129,8 @@ function ($scope, $stateParams, $state, $window,TravellerService, Flights, $ioni
         return 0
       }
     }
+
+    mixpanel.track("timewarp-confirm_tier",{'tier_type':$scope.flightType})
     
     $scope.genders = [
         {
@@ -155,9 +159,7 @@ function ($scope, $stateParams, $state, $window,TravellerService, Flights, $ioni
         } else {
             TravellerService.travellers = [$scope.new_traveller];
         }
-        console.log(travellerForm)
         travellerForm.$setPristine();
-        console.log(travellerForm)
         $scope.savedTravellers = TravellerService.travellers;
         $scope.travellersCount = $scope.savedTravellers.length;
         $scope.closeModal();
@@ -232,6 +234,8 @@ function ($scope, $stateParams, $location, TravellerService, Flights, $state, $w
 
     $scope.totalCost = $scope.flightList.tierPrice * $scope.travellers.length
     $scope.cardError = PaymentService.cardError;
+
+    mixpanel.track("timewarp-finished_adding_travellers",{'tier_type':$scope.flightType})
 
     $scope.submitPaymentForm = function() {
       firstName = $scope.cardData.name.split(' ')[0];
@@ -309,14 +313,19 @@ function ($scope, $state, $window, $stateParams, TravellerService, $ionicModal, 
     $scope.token = PaymentService.payment_token;
     $scope.card = PaymentService.card_number;
     $scope.tripType = Flights.tierDetails($scope.flightType)
+
+    mixpanel.track("timewarp-finished_adding_payment",{'tier_type':$scope.flightType})
     
     $scope.confirmation = function() {
+        document.getElementById('reviewFarePurchase-button5').disabled = true;
         promise = PaymentService.chargeCard(PaymentService.payment_token,$scope.totalCost, $scope.savedTravellers, $scope.tripDetails['origin'], $scope.tripDetails['destination'], $scope.tripDetails['departureDate'], $scope.tripDetails['returnDate'], $scope.flightType, $scope.flightList.tierPrice)
         promise.then( function(response){
           if (response['data']['success']) {
+            mixpanel.track("timewarp-completed_booking",{'tier_type':$scope.flightType})
             $scope.openModal();
             //do something to confirm purchase
           } else {
+            document.getElementById('reviewFarePurchase-button5').disabled = true;
             PaymentService.cardError = true
             $ionicHistory.goBack();
           }
@@ -367,6 +376,9 @@ function ($scope, $stateParams, $window, Flights, $ionicModal, $state) {
     $scope.flightList = Flights.flightDetails[$scope.flightType];
     $scope.tripDetails = Flights.tripDetails;
     $scope.tierDetails = Flights.tierDetails($scope.flightType)
+
+    var savings_amount = $scope.flightDetails[$scope.flightType]['currentPrice'] - $scope.flightDetails[$scope.flightType]['tierPrice']
+    mixpanel.track("timewarp-selected_tier",{'tier_type':$scope.flightType, 'savings_amount': savings_amount})
     
     $scope.bookNow = function() {
         $state.go('addTravellers',{'type':$scope.flightType});
@@ -380,6 +392,7 @@ function ($scope, $stateParams, $window, Flights, $ionicModal, $state) {
       });
       $scope.openModal = function() {
         $scope.modal.show();
+        mixpanel.track("timewarp-viewed_flight_list",{'tier_type':$scope.flightType})
       };
       $scope.closeModal = function() {
         $scope.modal.hide();
