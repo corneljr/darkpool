@@ -18,7 +18,7 @@ angular.module('flights', [])
       {'type':'anytime','title':'Any Flights on your Dates','description':'Flights with up to one stop departing anytime during the day.','stops':'One stop or direct','timeframe':'Anytime on your dates'},
       {'type':'morning','title':'Go Direct in the Morning','description':'Nonstop flights leaving before noon.','stops':'Nonstop','timeframe':'Between 6:00a and 11:55a'},
       {'type':'afternoon','title':'Go Direct in the Afternoon/Evening','description':'Nonstop flights leaving in the afternoon or evening.','stops':'Nonstop','timeframe':'Between 12:00p and 10:00p'},
-      {'type':'whatever','title':'Super Saver','description':"Super saver for the flexible traveler.", 'stops':'One stop or direct.', 'timeframe':'Anytime during the day, +/- 3 days.'}
+      {'type':'whatever','title':'Flexible Super Saver','description':"Any flights +/- 3 days of your dates. Same trip length.", 'stops':'One stop or direct.', 'timeframe':'Anytime during the day, +/- 3 days.'}
     ]
 
     this.tierDetails = function(tier) {

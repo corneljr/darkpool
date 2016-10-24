@@ -16,7 +16,7 @@
                             <h4 class="discount">
                                 <strike style='color:red;'>{{flightDetails[tier.type]['currentPrice'] | currency:"$":0}}</strike>&nbsp;Save {{flightDetails[tier.type]['currentPrice'] - flightDetails[tier.type]['tierPrice'] | currency:"$":0}}</h4>
                         </div>
-                        <div class='col-40 col-center'>
+                        <div class='col-40 col-center' style='position:absolute;right:10px;'>
                             <button ng-click="flightBreakdown(&quot;{{tier.type}}&quot;)" class="button button-positive" style='padding:0px 25px;'>{{flightDetails[tier.type]['tierPrice'] | currency:"$":0}} RT</button>
                         </div>
                     </div>
