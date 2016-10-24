@@ -7,19 +7,24 @@
             </div>
         </div>
         <ion-list id="timewarp-list2">
-            <div>
-                <ion-item ng-repeat="tier in tiers" style='padding:0px'>
-                    <div class='{{tier.type}}_background_image tier_info_container'>
-                        <div class='tier_text'>
-                            <h2>{{tier.title}}</h2>
-                            <h4>{{tier.description}}</h4>
-                            <h4 class="discount">
-                                    <strike style='color:red;'>{{flightDetails[tier.type]['currentPrice'] | currency:"$":0}}</strike>&nbsp;Save {{flightDetails[tier.type]['currentPrice'] - flightDetails[tier.type]['tierPrice'] | currency:"$":0}}</h4>
-                            <button ng-click="flightBreakdown(&quot;{{tier.type}}&quot;)" class="button button-positive" style='padding:0px 25px;'>{{flightDetails[tier.type]['tierPrice'] | currency:"$":0}} RT</button>
-                        </div>
+            <ion-item ng-repeat="tier in tiers" style='padding:0px'>
+                <div class='{{tier.type}}_background_image tier_info_container'>
+                    <div class='tier_text'>
+                        <h2>{{tier.title}}</h2>
+                        <h4>{{tier.description}}</h4>
+                        <h4 class="discount">
+                                <strike style='color:red;'>{{flightDetails[tier.type]['currentPrice'] | currency:"$":0}}</strike>&nbsp;Save {{flightDetails[tier.type]['currentPrice'] - flightDetails[tier.type]['tierPrice'] | currency:"$":0}}</h4>
+                        <button ng-click="flightBreakdown(&quot;{{tier.type}}&quot;)" class="button button-positive" style='padding:0px 25px;'>{{flightDetails[tier.type]['tierPrice'] | currency:"$":0}} RT</button>
                     </div>
-                </ion-item>
-            </div>
+                </div>
+            </ion-item>
+            <ion-item>
+                <div class='row'>
+                    <div class='col'>
+                        <p style='text-align:center;font-size:16px'><a ng-click='openModal()'>How does it work?</a></p>
+                    </div>
+                </div>
+            </ion-item>
         </ion-list>
         <div>
             <script id="howItWorks.html" type="text/ng-template">
