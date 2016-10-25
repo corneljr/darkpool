@@ -9,10 +9,10 @@
             <ion-item>
                 <div class='row'>
                     <div class='col'>
-                        <p>Departing</p>
+                        <p>Departure Date</p>
                     </div>
                     <div class='col'>
-                        <p class='align-right'>Return</p>
+                        <p class='align-right'>Return Date</p>
                     </div>
                 </div>
                 <div class='row'>
@@ -51,7 +51,7 @@
                         <p>Departure Time</p>
                     </div>
                     <div class='col'>
-                        <p class='align-right black' style='white-space:normal;'>{{tierDetails['timeframe']}}</p>
+                        <p class='align-right black'>{{tierDetails['timeframe']}}</p>
                     </div>
                 </div>
             </ion-item>
@@ -71,17 +71,17 @@
                         <p>One of these Airlines</p>
                     </div>
                     <div class='col'>
-                        <p class='align-right black' style='white-space:normal;'>{{flightDetails[flightType]['airlines'].join(', ')}}</p>
+                        <p class='align-right black'>{{flightDetails[flightType]['airlines'].join(', ')}}</p>
                     </div>
                 </div>
             </ion-item>
             <ion-item>
                 <div class='row'>
-                    <div class='col-20'>
+                    <div class='col'>
                         <p>Details</p>
                     </div>
-                    <div class='col-80'>
-                        <p class='align-right black' style='white-space:normal;'>
+                    <div class='col'>
+                        <p class='align-right black'>
                             You will receive your ticket at least a month before departure. It is 100% guaranteed and your ticket is fully refundable. <span ng-if="flightType == 'whatever'">Your flight will depart +/- 3 days of the above dates and the trip length will remain the same.</span>
                         </p>
                     </div>
