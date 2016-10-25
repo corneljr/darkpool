@@ -11,7 +11,7 @@ function ($scope, $stateParams, $timeout, $window, Flights, $state) {
 
     $scope.bunnyIndex = 1
     $scope.bunnyUrl = ''
-    $scope.expiryDate = new Date("2016-10-26 EST")
+    $scope.expiryDate = new Date("2016-10-30")
     $scope.countdown = "";
 
     var dateTicker = function() {
@@ -20,7 +20,6 @@ function ($scope, $stateParams, $timeout, $window, Flights, $state) {
       h = parseInt((ms % (1000 * 60 * 60 * 24)) / (1000*60*60) );
       m = parseInt(((ms % (1000 * 60 * 60 * 24)) % (1000*60*60)) / (1000*60));
       s = parseInt((((ms % (1000 * 60 * 60 * 24)) % (1000*60*60)) % (1000*60)) / (1000));
-
       $scope.countdown = d + 'd ' + h + 'h ' + m + 'm ' + s + 's ';
       $timeout(dateTicker,10);
     }
