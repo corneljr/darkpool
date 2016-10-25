@@ -38,11 +38,11 @@ module Flights
 					   'destination' => destination_city, 
 					   'departureDate' => departure_date,
 					   'returnDate' => return_date,
-					   'morning' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.2),'airlines' => [], 'outbound' => [], 'return' => []},
-					   'afternoon' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.2),'airlines' => [], 'outbound' => [], 'return' => []},
-					   'anytime' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.4),'airlines' => [], 'outbound' => [], 'return' => []},
-					   'anytype' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.6),'airlines' => [], 'outbound' => [], 'return' => []},
-					   'whatever' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.9),'airlines' => [], 'outbound' => [], 'return' => []}
+					   'morning' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.2).to_i,'airlines' => [], 'outbound' => [], 'return' => []},
+					   'afternoon' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.2).to_i,'airlines' => [], 'outbound' => [], 'return' => []},
+					   'anytime' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.4).to_i,'airlines' => [], 'outbound' => [], 'return' => []},
+					   'anytype' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.6).to_i,'airlines' => [], 'outbound' => [], 'return' => []},
+					   'whatever' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.9).to_i,'airlines' => [], 'outbound' => [], 'return' => []}
 					}
 
 		flight_nums = []
