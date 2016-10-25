@@ -11,6 +11,21 @@ function ($scope, $stateParams, $timeout, $window, Flights, $state) {
 
     $scope.bunnyIndex = 1
     $scope.bunnyUrl = ''
+    $scope.expiryDate = new Date("2016-10-26 EST")
+    $scope.countdown = "";
+
+    var dateTicker = function() {
+      ms = $scope.expiryDate - Date.now();
+      d = parseInt(ms / (1000 * 60 * 60 * 24));
+      h = parseInt((ms % (1000 * 60 * 60 * 24)) / (1000*60*60) );
+      m = parseInt(((ms % (1000 * 60 * 60 * 24)) % (1000*60*60)) / (1000*60));
+      s = parseInt((((ms % (1000 * 60 * 60 * 24)) % (1000*60*60)) % (1000*60)) / (1000));
+
+      $scope.countdown = d + 'd ' + h + 'h ' + m + 'm ' + s + 's ';
+      $timeout(dateTicker,10);
+    }
+
+    $timeout(dateTicker,10);
 
     var runBunny = function() {
       if ($scope.bunnyIndex == 13){
