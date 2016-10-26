@@ -4,11 +4,12 @@ class ApiController < ApplicationController
 
 	def charge_card
 		token = params["token"]
-		amount = params["amount"].to_i * 10
+		amount = params["amount"].to_i * 100
 		uri = URI.parse("https://core.spreedly.com/v1/gateways/#{ENV['spreedly_gateway_token']}/purchase.json")
 		request = Net::HTTP::Post.new(uri)
 		request.basic_auth(ENV['spreedly_key'], ENV['spreedly_secret'])
 		request.content_type = "application/json"
+
 		request.body = JSON.dump({
 		  "transaction" => {
 		    "payment_method_token" => token,
