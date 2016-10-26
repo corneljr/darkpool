@@ -11,13 +11,8 @@
                         <img class="traveller-image" src="<%= image_url('BunnyHalfSmile.png') %> " height="110" width="110">
                     </div>
                 </div>
-                <div class="col-60">
+                <div class="col-80">
                     <p style="line-height:50px;">{{traveller.firstName}} {{traveller.lastName}}</p>
-                </div>
-                <div class="col-20">
-                    <p class="align-right" style="line-height:50px;">
-                        <i class="ion-close"></i>
-                    </p>
                 </div>
             </div>
 
@@ -69,7 +64,7 @@
                         <div class='row' style='padding-bottom:15px;'>
                             <div class='col-50'>
                                 <label class="item item-input">
-                                    <input name='birthday' type="text" placeholder="Birthday" onfocus="(this.type='date')" ng-model='new_traveller.birthday' required>
+                                    <input name='birthday' type="text" placeholder="MM/DD/YYYY" ng-model='new_traveller.birthday' required>
                                 </label>
                             </div>
                             <div class='col-50' style='padding-bottom:15px;'>
