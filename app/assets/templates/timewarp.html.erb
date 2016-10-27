@@ -8,7 +8,7 @@
             </div>
         </div>
         <ion-list id="timewarp-list2">
-            <ion-item ng-repeat="tier in tiers" style='padding:0px'>
+            <ion-item ng-repeat="tier in tiers" style='padding:0px' ng-if="flightDetails[tier.type]['airlines'].length > 1">
                 <div class='{{tier.type}}_background_image tier_info_container'>
                     <div class='tier_text row'>
                         <div class='col-60'>

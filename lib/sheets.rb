@@ -1,6 +1,6 @@
 module Sheets
 	def output_to_spreadsheet(travellers,origin,destination,departure_date,return_date,tier,amount)
-		booking_id = SecureRandom.random_number(1_000_000_000)
+		booking_id = "TW" + SecureRandom.random_number(1_000_000).to_s
 
 		session = GoogleDrive::Session.from_config("config.json")
 		ws = session.spreadsheet_by_key("1boz24dpqMK0btRTL0XifIURNP0ae9WREm7LDzxrd2XU").worksheets[0]
