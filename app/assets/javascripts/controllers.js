@@ -146,6 +146,8 @@ function ($scope, $stateParams, $state, $window,TravellerService, Flights, $ioni
         return 0
       }
     }
+
+    mixpanel.track("timewarp-confirm_tier",{'tier_type':$scope.flightType});
     
     $scope.genders = [
         {

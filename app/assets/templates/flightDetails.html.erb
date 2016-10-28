@@ -17,10 +17,10 @@
                 </div>
                 <div class='row'>
                     <div class='col'>
-                        <p class='black'>{{tripDetails.departureDate | date:'MMM d, yyyy'}} <span ng-if='flightType == "whatever"'>+/- 3 days</span></p>
+                        <p class='black'>{{tripDetails.departureDate | date:'EEE MMM d, yyyy'}} <span ng-if='flightType == "whatever"'>+/- 3 days</span></p>
                     </div>
                     <div class='col'>
-                        <p class='align-right black'>{{tripDetails.returnDate | date:'MMM d, yyyy'}} <span ng-if='flightType == "whatever"'>+/- 3 days</span></p>
+                        <p class='align-right black'>{{tripDetails.returnDate | date:'EEE MMM d, yyyy'}} <span ng-if='flightType == "whatever"'>+/- 3 days</span></p>
                     </div>
                 </div>
             </ion-item>
