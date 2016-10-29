@@ -9,7 +9,7 @@ angular.module('payment', [])
     	})
     }
 
-    this.chargeCard = function(token,amount, travellers, origin, destination, departure_date, return_date, tier, amount) {
+    this.chargeCard = function(token,amount, travellers, origin, destination, departure_date, return_date, tier) {
     	return $http({
     		url:'/api/charge_card',
     		method: "POST",

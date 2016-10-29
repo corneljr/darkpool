@@ -325,7 +325,8 @@ function ($scope, $state, $window, $stateParams, TravellerService, $ionicModal, 
     $scope.flightType = $stateParams.type;
     $scope.flightDetails = Flights.flightDetails;
     $scope.flightList = Flights.flightDetails[$scope.flightType];
-    $scope.totalCost = $scope.flightList.tierPrice * $scope.savedTravellers.length
+    $scope.totalCost = $scope.flightList.tierPrice * $scope.savedTravellers.length;
+    console.log('total: ' + $scope.totalCost)
     $scope.tripDetails = Flights.tripDetails;
     $scope.token = PaymentService.payment_token;
     $scope.card = PaymentService.card_number;
@@ -335,7 +336,7 @@ function ($scope, $state, $window, $stateParams, TravellerService, $ionicModal, 
     
     $scope.confirmation = function() {
         document.getElementById('reviewFarePurchase-button5').disabled = true;
-        promise = PaymentService.chargeCard(PaymentService.payment_token,$scope.totalCost, $scope.savedTravellers, $scope.tripDetails['origin'], $scope.tripDetails['destination'], $scope.tripDetails['departureDate'], $scope.tripDetails['returnDate'], $scope.flightType, $scope.flightList.tierPrice)
+        promise = PaymentService.chargeCard(PaymentService.payment_token,$scope.totalCost, $scope.savedTravellers, $scope.tripDetails['origin'], $scope.tripDetails['destination'], $scope.tripDetails['departureDate'], $scope.tripDetails['returnDate'], $scope.flightType)
         promise.then( function(response){
           if (response['data']['success']) {
             mixpanel.track("timewarp-completed_booking",{'tier_type':$scope.flightType})

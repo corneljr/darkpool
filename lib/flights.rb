@@ -4,7 +4,6 @@ module Flights
 		uri = URI("https://mobile-api.hopper.com/api/v1/cards?origin=#{origin}&destination=#{destination}&departure=#{departure_date}&return=#{return_date}")
 		response = Net::HTTP.get(uri)
 		parsed_response = JSON.parse(response)
-
 		flights = parsed_response['cards'][0]['trips']
 		forecast = parsed_response['cards'][1]['forecast']
 		data = parsed_response['data']
