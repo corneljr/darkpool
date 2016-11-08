@@ -26,7 +26,14 @@ class ApiController < ApplicationController
 	  parsed_response = JSON.parse(response.body)
 
 	  if parsed_response["transaction"]["succeeded"]
-	  	output_to_spreadsheet(params[:travellers], params[:origin], params[:destination], params[:departure_date],params[:return_date],params[:tier], params[:amount])
+	  	booking_id = "TW" + SecureRandom.random_number(1_000_000).to_s
+	  	output_to_spreadsheet(params[:travellers], params[:origin], params[:destination], params[:departure_date],params[:return_date],params[:tier], params[:amount], booking_id)
+
+	  	travellers = params[:travellers].map {|x| "#{x['firstName']} #{x['lastName']}"}.join(', ')
+	  	params[:travellers].each do |traveller|
+	  		ConfirmationMailer.send_confirmation(traveller["email"], travellers, params[:origin], params[:destination], params[:departure_date], params[:return_date], params[:amount], booking_id, params[:tier_description]).deliver
+	  	end
+
 	  	render json: {success: true}
 	  else
 	  	render json: {success: false}

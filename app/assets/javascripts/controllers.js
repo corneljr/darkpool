@@ -11,7 +11,7 @@ function ($scope, $stateParams, $timeout, $window, Flights, $state) {
 
     $scope.bunnyIndex = 1
     $scope.bunnyUrl = ''
-    $scope.expiryDate = new Date("2016-11-01")
+    $scope.expiryDate = new Date("2016-11-15")
     $scope.countdown = "";
 
     var dateTicker = function() {
@@ -336,7 +336,7 @@ function ($scope, $state, $window, $stateParams, TravellerService, $ionicModal, 
     
     $scope.confirmation = function() {
         document.getElementById('reviewFarePurchase-button5').disabled = true;
-        promise = PaymentService.chargeCard(PaymentService.payment_token,$scope.totalCost, $scope.savedTravellers, $scope.tripDetails['origin'], $scope.tripDetails['destination'], $scope.tripDetails['departureDate'], $scope.tripDetails['returnDate'], $scope.flightType)
+        promise = PaymentService.chargeCard(PaymentService.payment_token,$scope.totalCost, $scope.savedTravellers, $scope.tripDetails['origin'], $scope.tripDetails['destination'], $scope.tripDetails['departureDate'], $scope.tripDetails['returnDate'], $scope.flightType,$scope.tripType['description'])
         promise.then( function(response){
           if (response['data']['success']) {
             mixpanel.track("timewarp-completed_booking",{'tier_type':$scope.flightType})
