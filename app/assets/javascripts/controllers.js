@@ -69,16 +69,6 @@ function ($scope, $stateParams, $timeout, $window, Flights, $state) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope,$window,$stateParams,$timeout,Flights, $ionicModal, $state) {
 
-    if (!Flights.flightDetails) {
-      $window.location = $window.location.origin + $window.location.search
-    }
-
-    mixpanel.track("timewarp-completed_onboarding")
-
-    $scope.flightDetails = Flights.flightDetails;
-    $scope.tripDetails = Flights.tripDetails;
-    $scope.tiers = Flights.tiers.slice(1,5)
-
     $scope.getParameterByName = function(name) {
       url = window.location.href;
       name = name.replace(/[\[\]]/g, "\\$&");
@@ -88,6 +78,39 @@ function ($scope,$window,$stateParams,$timeout,Flights, $ionicModal, $state) {
       if (!results[2]) return '';
       return decodeURIComponent(results[2].replace(/\+/g, " "));
     };
+
+    Flights.tripDetails = {'origin': $scope.getParameterByName('origin'),'destination': $scope.getParameterByName('destination'), 'departureDate': $scope.getParameterByName('departure'), 'returnDate': $scope.getParameterByName('return')}
+    $scope.tripDetails = Flights.tripDetails;
+    promise = Flights.getFlights($scope.tripDetails.origin,$scope.tripDetails.destination,$scope.tripDetails.departureDate,$scope.tripDetails.returnDate);
+    promise.then( function(response){
+      Flights.flightDetails = response.data;
+      $scope.flightDetails = Flights.flightDetails;
+      $scope.dataLoaded = true;
+      document.getElementsByTagName('ion-nav-bar')[0].classList.remove("hide");
+      mixpanel.register({"origin":$scope.flightDetails['origin'],"destination":$scope.flightDetails['destination'],"departure_date":$scope.flightDetails['departureDate'],"return_date":$scope.flightDetails['return_date']})
+      mixpanel.track("timewarp-launched_timewarp");
+    }, function(error_response) {
+      console.log(error_response);
+    });
+
+    mixpanel.track("timewarp-completed_onboarding")
+    $scope.tiers = Flights.tiers.slice(1,5)
+    $scope.bunnyIndex = 1
+    $scope.bunnyUrl = ''
+    $scope.dataLoaded = false;
+
+    var runBunny = function() {
+      if ($scope.bunnyIndex == 13){
+        $scope.bunnyIndex = 1;
+      } else {
+        $scope.bunnyIndex+=1;        
+      }
+      string = "image-" + $scope.bunnyIndex
+      $scope.bunnyUrl = document.getElementById('image-data').dataset[string];
+      $timeout(runBunny,50);
+    }
+
+    $timeout(runBunny, 50);
     
     $ionicModal.fromTemplateUrl('howItWorks.html', {
         scope: $scope,
@@ -326,7 +349,6 @@ function ($scope, $state, $window, $stateParams, TravellerService, $ionicModal, 
     $scope.flightDetails = Flights.flightDetails;
     $scope.flightList = Flights.flightDetails[$scope.flightType];
     $scope.totalCost = $scope.flightList.tierPrice * $scope.savedTravellers.length;
-    console.log('total: ' + $scope.totalCost)
     $scope.tripDetails = Flights.tripDetails;
     $scope.token = PaymentService.payment_token;
     $scope.card = PaymentService.card_number;
