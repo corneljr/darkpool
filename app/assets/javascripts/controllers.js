@@ -94,7 +94,7 @@ function ($scope,$window,$stateParams,$timeout,Flights, $ionicModal, $state) {
     });
 
     mixpanel.track("timewarp-completed_onboarding")
-    $scope.tiers = Flights.tiers.slice(1,5)
+    $scope.tiers = Flights.tiers
     $scope.bunnyIndex = 1
     $scope.bunnyUrl = ''
     $scope.dataLoaded = false;
