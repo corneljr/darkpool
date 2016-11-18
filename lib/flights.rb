@@ -90,6 +90,7 @@ module Flights
 
 				# check if there are long layovers/overnights
 				tester = test_for_warnings(flight)
+				binding.pry
 
 				next if tester
 
@@ -123,7 +124,7 @@ module Flights
 		tester = false
 		flight['trip_warnings']['sliceInfos'].each do |slice|
 			slice['warnings'].each do |warning|
-				if warning['warning'] == 'This trip includes a long layover.'
+				if warning['level'] == 'high'
 					tester = true
 				end
 			end

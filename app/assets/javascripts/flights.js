@@ -22,7 +22,7 @@ angular.module('flights', [])
     // ]
 
     this.tiers = [{'type':'whatever','title':'Flexible Super Saver','description':"Any flights +/- 1 day of your dates. Same trip length.", 'stops':'One stop or direct.', 'timeframe':'Anytime during the day, +/- 1 day of your dates.'},
-      {'type':'anytype','title':'Leave Anytime','description':'You will be booked on a nonstop or one-stop flight departing anytime on your dates.','stops':'One stop or direct','timeframe':'Anytime on your dates'},
+      {'type':'anytype','title':'Anytime on your dates','description':'You will be booked on a nonstop or one-stop flight departing anytime on your dates.','stops':'One stop or direct','timeframe':'Anytime on your dates'},
       {'type':'anytime','title':'Go Direct','description':'Nonstop flights departing anytime during the day.','stops':'One stop or direct','timeframe':'Anytime on your dates'}
     ]
 
