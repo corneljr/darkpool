@@ -90,7 +90,6 @@ module Flights
 
 				# check if there are long layovers/overnights
 				tester = test_for_warnings(flight)
-				binding.pry
 
 				next if tester
 
