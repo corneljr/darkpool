@@ -21,9 +21,9 @@ angular.module('flights', [])
     //   {'type':'afternoon','title':'Go Direct in the Afternoon/Evening','description':'Nonstop flights leaving in the afternoon or evening.','stops':'Nonstop','timeframe':'Between 12:00p and 10:00p'}
     // ]
 
-    this.tiers = [{'type':'whatever','title':'Flexible Super Saver','description':"Any flights +/- 1 day of your dates. Same trip length.", 'stops':'One stop or direct.', 'timeframe':'Anytime during the day, +/- 1 day of your dates.'},
-      {'type':'anytype','title':'Anytime on your dates','description':'You will be booked on a nonstop or one-stop flight departing anytime on your dates.','stops':'One stop or direct','timeframe':'Anytime on your dates'},
-      {'type':'anytime','title':'Go Direct','description':'Nonstop flights departing anytime during the day.','stops':'Direct','timeframe':'Anytime on your dates'}
+    this.tiers = [{'type':'whatever','title':'Flexible Super Saver','description':"Any flights +/- 1 day of your dates. Same trip length.", 'stops':'One stop or direct.', 'timeframe':'Anytime during the day, +/- 1 day of your dates.','social':'26 people have bought this deal.'},
+      {'type':'anytype','title':'Anytime on your dates','description':'You will be booked on a nonstop or one-stop flight departing anytime on your dates.','stops':'One stop or direct','timeframe':'Anytime on your dates', 'social':'15 people have bought this deal.'},
+      {'type':'anytime','title':'Go Direct','description':'Nonstop flights departing anytime during the day.','stops':'Direct','timeframe':'Anytime on your dates','social':'19 people have bought this deal.'}
     ]
 
     this.tierDetails = function(tier) {
