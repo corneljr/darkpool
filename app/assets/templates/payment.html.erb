@@ -14,7 +14,7 @@
                 <div class="col" style='padding-left:0;'>
                     <i class="ion-card" style="position:absolute;top:30px;"></i>
                     <label class="item item-input">
-                        <input name='card' type="text" placeholder="Credit Card #" ng-model="cardData.cardNumber" ng-pattern='/^[0-9]{16}$/' ng-model-options="{ updateOn: 'blur' }" required>
+                        <input name='card' type="text" placeholder="Credit Card #" ng-model="cardData.cardNumber" ng-pattern='/^[0-9]{15,16}$/' ng-model-options="{ updateOn: 'blur' }" required>
                     </label>
                 </div>
             </div>
