@@ -2,7 +2,7 @@ require "mandrill"
 
 class BaseMandrillMailer < ActionMailer::Base
   default(
-    from: "'Hopper Bookings' <bookings@hopper.com>"
+    from: "'Hopper Bookings' <support@hopper.com>"
   )
 
   private
