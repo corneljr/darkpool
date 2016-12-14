@@ -64,10 +64,21 @@ function ($scope, $stateParams, $timeout, $window, Flights, $state) {
 }])
 
   
-.controller('timewarpCtrl', ['$scope','$window','$stateParams','$timeout','Flights', '$ionicModal', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('timewarpCtrl', ['$scope','$rootScope', '$window','$stateParams','$timeout','Flights', '$ionicModal', '$location','$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope,$window,$stateParams,$timeout,Flights, $ionicModal, $state) {
+function ($scope,$rootScope,$window,$stateParams,$timeout,Flights, $ionicModal, $location, $state) {
+
+    // grab pointer to original function
+    var oldSoftBack = $rootScope.$ionicGoBack;
+
+    // override default behaviour
+    $rootScope.$ionicGoBack = function() {
+        console.log('boom')
+        window.location = "hopper-flights://home?tab=inbox"
+
+        oldSoftBack();
+    };
 
     $scope.getParameterByName = function(name) {
       url = window.location.href;
@@ -86,7 +97,6 @@ function ($scope,$window,$stateParams,$timeout,Flights, $ionicModal, $state) {
       Flights.flightDetails = response.data;
       $scope.flightDetails = Flights.flightDetails;
       $scope.dataLoaded = true;
-      document.getElementsByTagName('ion-nav-bar')[0].classList.remove("hide");
       mixpanel.register({"origin":$scope.flightDetails['origin'],"destination":$scope.flightDetails['destination'],"departure_date":$scope.flightDetails['departureDate'],"return_date":$scope.flightDetails['return_date']})
       mixpanel.track("timewarp-launched_timewarp");
     }, function(error_response) {
@@ -147,7 +157,7 @@ function ($scope,$window,$stateParams,$timeout,Flights, $ionicModal, $state) {
     };
 }])
    
-.controller('addTravellersCtrl', ['$scope', '$stateParams', '$state', '$window','TravellerService', 'Flights', '$ionicModal', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('addTravellersCtrl', ['$scope','$stateParams', '$state', '$window','TravellerService', 'Flights', '$ionicModal', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $state, $window,TravellerService, Flights, $ionicModal) {
@@ -256,11 +266,11 @@ function ($scope, $stateParams, $state, $window,TravellerService, Flights, $ioni
 
 }])
    
-.controller('paymentCtrl', ['$scope', '$stateParams','$location','TravellerService', 'Flights', '$state','$window', 'PaymentService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('paymentCtrl', ['$scope','$stateParams','$location','TravellerService', 'Flights', '$state','$window', 'PaymentService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $location, TravellerService, Flights, $state, $window, PaymentService) {
-    
+
     if (!Flights.flightDetails) {
       $window.location = $window.location.origin + $window.location.search
     }
@@ -335,10 +345,10 @@ function ($scope, $stateParams, $location, TravellerService, Flights, $state, $w
     }
 }])
    
-.controller('reviewFarePurchaseCtrl', ['$scope', '$state', '$window','$stateParams', 'TravellerService', '$ionicModal', '$ionicHistory','Flights','PaymentService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('reviewFarePurchaseCtrl', ['$scope', '$state', '$window','$stateParams', 'TravellerService', '$ionicModal','Flights','PaymentService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $window, $stateParams, TravellerService, $ionicModal, $ionicHistory,Flights,PaymentService) {
+function ($scope, $state, $window, $stateParams, TravellerService, $ionicModal,Flights,PaymentService) {
 
     if (!Flights.flightDetails) {
       $window.location = $window.location.origin + $window.location.search
