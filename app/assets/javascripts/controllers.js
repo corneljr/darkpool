@@ -74,7 +74,8 @@ function ($scope,$rootScope,$window,$stateParams,$timeout,Flights, $ionicModal, 
 
     // override default behaviour
     $rootScope.$ionicGoBack = function() {
-        window.location = "hopper-flights://home?tab=inbox"
+        // window.location = "hopper-flights://home?tab=inbox"
+        window.location = "https://www.hopper.com/linktest.html"
 
         oldSoftBack();
     };
