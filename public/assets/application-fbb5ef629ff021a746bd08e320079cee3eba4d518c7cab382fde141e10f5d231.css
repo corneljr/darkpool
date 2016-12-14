@@ -1,4 +1,4 @@
-@charset "UTF-8";
+
 /*!
  * Copyright 2015 Drifty Co.
  * http://drifty.com/
@@ -23,51 +23,52 @@
   used under CC BY http://creativecommons.org/licenses/by/4.0/
   Modified icons to fit ionicon’s grid from original.
 */
+
 @font-face {
   font-family: "Ionicons";
-  src: url("<%= asset_path('ionicons.eot?v=2.0.1') %>");
-  src: url("<%= asset_path('ionicons.eot?v=2.0.1#iefix') %>") format("embedded-opentype"), url("<%= asset_path('ionicons.ttf?v=2.0.1') %>") format("truetype"), url("<%= asset_path('ionicons.woff?v=2.0.1') %>") format("woff"), url("<%= asset_path('ionicons.woff') %>") format("woff"), url("<%= asset_path('ionicons.svg?v=2.0.1#Ionicons') %>") format("svg");
+  src: url("/assets/ionicons-a4803d7bdeb478a5b9238fe74d8aaa98dafe2e8e68fccbd0e3f4dced823f27f0.eot?v=2.0.1");
+  src: url("/assets/ionicons-a4803d7bdeb478a5b9238fe74d8aaa98dafe2e8e68fccbd0e3f4dced823f27f0.eot?v=2.0.1#iefix") format("embedded-opentype"), url("/assets/ionicons-2ba7f20b1d8990e17a47fe3d88e4c766628aaa2baf1dd30fca0a0db59836f5f9.ttf?v=2.0.1") format("truetype"), url("/assets/ionicons-709f2789daaff440820ebb975d3ae409af45121bdec47e39e83523490b1bc0fc.woff?v=2.0.1") format("woff"), url("/assets/ionicons-709f2789daaff440820ebb975d3ae409af45121bdec47e39e83523490b1bc0fc.woff") format("woff"), url("/assets/ionicons-a627d9068c1235d9b3c95c405eb6ecb64a290b159cf5e926c0d96d89b24cd5fc.svg?v=2.0.1#Ionicons") format("svg");
   font-weight: normal;
   font-style: normal; }
 
 @font-face {
   font-family: 'ProximaNova';
-  src: url("<%= asset_path('ProximaNova-Regular.otf') %>");
+  src: url("/assets/ProximaNova-Regular-2b80fbe521e07e4e84eb52e707b364c3e6c05c57e483276dc4b3be93a9794ba9.otf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'ProximaNova';
-  src: url("<%= asset_path('ProximaNova-Bold.otf') %>");
+  src: url("/assets/ProximaNova-Bold-b9e81a47aecd3d05445ae775f48d08b3de46b2039f1d229a58a87be194e327ec.otf");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'ProximaNova';
-  src: url("<%= asset_path('ProximaNova-Light.otf') %>");
+  src: url("/assets/ProximaNova-Light-0f77660e06a5f61a45c4dbdab511722357cf29e7f5ba1b2cf097550afdb0ed20.otf");
   font-weight: lighter;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'ProximaNova';
-  src: url("<%= asset_path('ProximaNova-RegularItalic.otf') %>");
+  src: url("/assets/ProximaNova-RegularItalic-b3f47de159540577ba1a61e295a11389295eb9a24dd495a05580b57d0f8f93a9.otf");
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
   font-family: 'ProximaNova';
-  src: url("<%= asset_path('ProximaNova-LightItalic.otf') %>");
+  src: url("/assets/ProximaNova-LightItalic-95adb7c11e12e545e430491c8e79b35abb1786532e32da7c67160feeece858b9.otf");
   font-weight: lighter;
   font-style: italic;
 }
 
 @font-face {
   font-family: 'ProximaNova';
-  src: url("<%= asset_path('ProximaNova-Semibold.otf') %>");
+  src: url("/assets/ProximaNova-Semibold-9e7ff2f279f8c497d687d1248d17e7a8c19784d945698c4bc8f9168fe9e351cb.otf");
   font-weight: 500;
   font-style: normal;
 }
@@ -9952,31 +9953,31 @@ a.button {
 
 
 .morning_background_image {
-  background-image: url('<%= image_url("morning_tier.jpg") %>');
+  background-image: url('/assets/morning_tier-14f5d9de5f6956f9b8cfe0c59f49c6a5f5d8ab88abbe1a50345eb5aedfa3fc4e.jpg');
   background-repeat:no-repeat;
   background-size: cover;
 }
 
 .afternoon_background_image {
-  background-image: url('<%= image_url("afternoon_tier.jpg") %>');
+  background-image: url('/images/afternoon_tier.jpg');
   background-repeat:no-repeat;
   background-size: cover;
 }
 
 .anytime_background_image {
-  background-image: url('<%= image_url("anytime_tier.jpg") %>');
+  background-image: url('/assets/anytime_tier-9c6f3c2aeec1e4345284feb8ba8db156e20fe1da0009cd8ef436abf3aea498ad.jpg');
   background-repeat:no-repeat;
   background-size:cover;
 }
 
 .anytype_background_image {
-  background-image: url('<%= image_url("anytype_tier.jpg") %>');
+  background-image: url('/assets/anytype_tier-a8f97bafefc3789977d7134af07e75cb1cf674cdf5a1fa7805c9b1c40188cc74.jpg');
   background-repeat:no-repeat;
   background-size:cover;
 }
 
 .whatever_background_image {
-  background-image: url('<%= image_url("whatever_tier.jpg") %>');
+  background-image: url('/assets/whatever_tier-3f029a87922380dd37db7e5e8eed157802d4e39d8a5c3f33d5182c1b015ff492.jpg');
   background-repeat:no-repeat;
   background-size: 130%;
   background-position-x: -90px;
@@ -10025,3 +10026,19 @@ a.button {
 .nav-padding {
   height:54px !important;
 }
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */
+
