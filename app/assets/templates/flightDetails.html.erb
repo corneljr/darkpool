@@ -17,10 +17,10 @@
                 </div>
                 <div class='row'>
                     <div class='col'>
-                        <p class='black'>{{tripDetails.departureDate | date:'EEE MMM d, yyyy'}} <span ng-if='flightType == "whatever"'>+/- 1 day</span></p>
+                        <p class='black'>{{tripDetails.departureDate | date:'EEE MMM d, yyyy'}} <span ng-if='flightType == "flex" || flightType == "flexNonstop"'>+/- 1 day</span></p>
                     </div>
                     <div class='col'>
-                        <p class='align-right black'>{{tripDetails.returnDate | date:'EEE MMM d, yyyy'}} <span ng-if='flightType == "whatever"'>+/- 1 day</span></p>
+                        <p class='align-right black'>{{tripDetails.returnDate | date:'EEE MMM d, yyyy'}} <span ng-if='flightType == "flex" || flightType == "flexNonstop"'>+/- 1 day</span></p>
                     </div>
                 </div>
             </ion-item>
@@ -82,7 +82,7 @@
                     </div>
                     <div class='col'>
                         <p class='align-right black'>
-                            You will receive your ticket at least a month before departure. It is 100% guaranteed and your ticket is fully refundable. <span ng-if="flightType == 'whatever'">Your flight will depart +/- 1 day of the above dates and the trip length will remain the same.</span>
+                            You will receive your ticket at least a month before departure. It is 100% guaranteed and your ticket is fully refundable. <span ng-if='flightType == "flex" || flightType == "flexNonstop"'>Your flight will depart +/- 1 day of the above dates and the trip length will remain the same.</span>
                         </p>
                     </div>
                 </div>

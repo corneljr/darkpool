@@ -14,16 +14,10 @@ angular.module('flights', [])
         })
     };
 
-    // this.tiers = [{'type':'anytype','title':'Any flights on your dates','description':'You will be booked on a flight with up to two stops departing anytime on your dates.','stops':'One stop or direct','timeframe':'Anytime on your dates'},
-    //   {'type':'whatever','title':'Flexible Super Saver','description':"Any flights +/- 3 days of your dates. Same trip length.", 'stops':'One stop or direct.', 'timeframe':'Anytime during the day, +/- 3 days of your dates.'},
-    //   {'type':'anytime','title':'Leave Anytime','description':'Flights with up to one stop departing anytime during the day.','stops':'One stop or direct','timeframe':'Anytime on your dates'},
-    //   {'type':'morning','title':'Go Direct in the Morning','description':'Nonstop flights leaving before noon.','stops':'Nonstop','timeframe':'Between 6:00a and 11:55a'},
-    //   {'type':'afternoon','title':'Go Direct in the Afternoon/Evening','description':'Nonstop flights leaving in the afternoon or evening.','stops':'Nonstop','timeframe':'Between 12:00p and 10:00p'}
-    // ]
-
-    this.tiers = [{'type':'whatever','title':'Flexible Super Saver','description':"Any flights +/- 1 day of your dates. Same trip length.", 'stops':'One stop or direct.', 'timeframe':'Anytime during the day, +/- 1 day of your dates.','social':'26 people have bought this deal.'},
-      {'type':'anytype','title':'Anytime on your dates','description':'You will be booked on a nonstop or one-stop flight departing anytime on your dates.','stops':'One stop or direct','timeframe':'Anytime on your dates', 'social':'15 people have bought this deal.'},
-      {'type':'anytime','title':'Go Direct','description':'Nonstop flights departing anytime during the day.','stops':'Direct','timeframe':'Anytime on your dates','social':'19 people have bought this deal.'}
+    this.tiers = [{'type':'nonstop','title':'Go Nonstop','description':'Nonstop flights departing anytime during the day.','stops':'Nonstop','timeframe':'Anytime on your dates','social':'19 people have bought this deal.'},
+      {'type':'onestop','title':'Anytime on your dates','description':'You will be booked on a nonstop or one-stop flight departing anytime on your dates.','stops':'One stop or direct','timeframe':'Anytime on your dates', 'social':'15 people have bought this deal.'},
+      {'type':'flex','title':'Flexible Super Saver','description':"Any flights +/- 1 day of your dates. Same trip length.", 'stops':'Nonstop.', 'timeframe':'Anytime during the day, +/- 1 day of your dates.','social':'26 people have bought this deal.'},
+      {'type':'flexNonstop','title':'Flexible Nonstop','description':"Nonstop flights +/- 1 day of your dates. Same trip length.", 'stops':'Nonstop.', 'timeframe':'Anytime during the day, +/- 1 day of your dates.','social':'32 people have bought this deal.'}
     ]
 
     this.tierDetails = function(tier) {

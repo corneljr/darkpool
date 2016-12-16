@@ -6,7 +6,7 @@
             </div>
             <div class='col-90'>
                 <h4>{{flightDetails.origin}} to {{flightDetails.destination}}</h4>
-                <p>{{tripDetails.departureDate | date:'EEE, MMM d'}} <span ng-if="tripType['type'] == 'whatever'">+/- 1 day</span></p>
+                <p>{{tripDetails.departureDate | date:'EEE, MMM d'}} <span ng-if="tripType['type'] == 'flex' || tripType['type'] == 'flexNonstop'">+/- 1 day</span></p>
             </div>
         </div>
         <div class='row'>
@@ -15,7 +15,7 @@
             </div>
             <div class='col-90'>
                 <h4>{{flightDetails.destination}} to {{flightDetails.origin}}</h4>
-                <p>{{tripDetails.returnDate | date:'EEE, MMM d'}} <span ng-if="tripType['type'] == 'whatever'">+/- 1 day</span></p>
+                <p>{{tripDetails.returnDate | date:'EEE, MMM d'}} <span ng-if="tripType['type'] == 'flex' || tripType['type'] == 'flexNonstop'">+/- 1 day</span></p>
             </div>
         </div>
         <div class='row'>

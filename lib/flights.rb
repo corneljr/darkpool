@@ -1,12 +1,24 @@
 module Flights
 
 	def parse_flights(origin,destination,departure_date,return_date)
-		uri = URI("https://mobile-api.hopper.com/api/v1/cards?origin=#{origin}&destination=#{destination}&departure=#{departure_date}&return=#{return_date}")
+		uri = URI("https://mobile-api.hopper.com/api/v1/cards?origin=#{origin}&destination=#{destination}&departure=#{departure_date}&return=#{return_date}&trip_filter=NoLCC")
 		response = Net::HTTP.get(uri)
 		parsed_response = JSON.parse(response)
 		flights = parsed_response['cards'][0]['trips']
 		forecast = parsed_response['cards'][1]['forecast']
 		data = parsed_response['data']
+
+		#########################################
+		# nonstop forecast
+
+		nonstop_uri = URI("https://mobile-api.hopper.com/api/v1/cards?origin=#{origin}&destination=#{destination}&departure=#{departure_date}&return=#{return_date}&trip_filter=And%28NonStop%2CNoLCC%29")
+		nonstop_response = Net::HTTP.get(nonstop_uri)
+		nonstop_parsed_response = JSON.parse(nonstop_response)
+		nonstop_forecast = nonstop_parsed_response['cards'][1]['forecast']
+
+		nonstopCurrentPrice = nonstop_forecast['bestRecentPrice']
+		nonstopTargetPrice = nonstop_forecast['targetPrice']
+		nonstopAvailableDiscount = nonstopCurrentPrice - nonstopTargetPrice
 
 		#########################################
 
@@ -37,11 +49,10 @@ module Flights
 					   'destination' => destination_city, 
 					   'departureDate' => departure_date,
 					   'returnDate' => return_date,
-					   'morning' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.3).to_i,'airlines' => [], 'outbound' => [], 'return' => []},
-					   'afternoon' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.3).to_i,'airlines' => [], 'outbound' => [], 'return' => []},
-					   'anytime' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.4).to_i,'airlines' => [], 'outbound' => [], 'return' => []},
-					   'anytype' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.6).to_i,'airlines' => [], 'outbound' => [], 'return' => []},
-					   'whatever' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.9).to_i,'airlines' => [], 'outbound' => [], 'return' => []}
+					   'flexNonstop' => {'currentPrice' => nonstopCurrentPrice, 'tierPrice' => nonstopCurrentPrice - (nonstopAvailableDiscount * 0.8).to_i,'airlines' => [], 'outbound' => [], 'return' => []},
+					   'nonstop' => {'currentPrice' => nonstopCurrentPrice, 'tierPrice' => nonstopCurrentPrice - (nonstopAvailableDiscount * 0.5).to_i,'airlines' => [], 'outbound' => [], 'return' => []},
+					   'onestop' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.5).to_i,'airlines' => [], 'outbound' => [], 'return' => []},
+					   'flex' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.8).to_i,'airlines' => [], 'outbound' => [], 'return' => []}
 					}
 
 		flight_nums = []
@@ -88,31 +99,26 @@ module Flights
 
 				flight_info['airline_image_url'] = airline_logo
 
-				# check if there are long layovers/overnights
 				tester = test_for_warnings(flight)
 
 				next if tester
 
 				if flight_info['stops'] == 0
-					# flight_list['morning']["#{leg}"] << flight_info if flight_info['departureTime'].include?('am')
-					# flight_list['morning']['airlines'] << flight_info['airline'] if flight_info['departureTime'].include?('am') && !flight_list['morning']['airlines'].include?(flight_info['airline'])
 
-					# flight_list['afternoon']["#{leg}"] << flight_info if flight_info['departureTime'].include?('pm')
-					# flight_list['afternoon']['airlines'] << flight_info['airline'] if flight_info['departureTime'].include?('pm') && !flight_list['afternoon']['airlines'].include?(flight_info['airline'])
+					flight_list['nonstop']["#{leg}"] << flight_info
+					flight_list['nonstop']['airlines'] << flight_info['airline'] unless flight_list['nonstop']['airlines'].include?(flight_info['airline'])
 
-					flight_list['anytime']["#{leg}"] << flight_info
-					flight_list['anytime']['airlines'] << flight_info['airline'] unless flight_list['anytime']['airlines'].include?(flight_info['airline'])
+					flight_list['flexNonstop']["#{leg}"] << flight_info
+					flight_list['flexNonstop']['airlines'] << flight_info['airline'] unless flight_list['flexNonstop']['airlines'].include?(flight_info['airline'])
 				end
 
 				if flight_info['stops'] < 2
-					flight_list['anytype']["#{leg}"] << flight_info	
-					flight_list['anytype']['airlines'] << flight_info['airline'] unless flight_list['anytype']['airlines'].include?(flight_info['airline'])
-					# flight_list['anytime']["#{leg}"] << flight_info
-					# flight_list['anytime']['airlines'] << flight_info['airline'] unless flight_list['anytime']['airlines'].include?(flight_info['airline'])
+					flight_list['onestop']["#{leg}"] << flight_info	
+					flight_list['onestop']['airlines'] << flight_info['airline'] unless flight_list['onestop']['airlines'].include?(flight_info['airline'])
 				end
 
-				flight_list['whatever']["#{leg}"] << flight_info
-				flight_list['whatever']['airlines'] << flight_info['airline'] unless flight_list['whatever']['airlines'].include?(flight_info['airline'])
+				flight_list['flex']["#{leg}"] << flight_info
+				flight_list['flex']['airlines'] << flight_info['airline'] unless flight_list['flex']['airlines'].include?(flight_info['airline'])
 			end
 		end
 
