@@ -31,7 +31,7 @@
                     </div>
                     <div class='col'>
                         <p class='align-right black bold'>{{flightDetails[flightType]['tierPrice'] | currency:"$":0}} Roundtrip</p>
-                        <p class='align-right black'><strike style='color:red;'>{{flightDetails[flightType]['currentPrice'] | currency:"$":0}}</strike>&nbsp;Save {{flightDetails[flightType]['currentPrice'] - flightDetails[flightType]['tierPrice'] | currency:"$":0}}</p>
+                        <p class='align-right black'><strike style='color:red;'>{{flightDetails[flightType]['currentPrice'] | currency:"$":0}}</strike>&nbsp;Save {{flightDetails[flightType]['savings'] | currency:"$":0}}</p>
                     </div>
                 </div>
             </ion-item>

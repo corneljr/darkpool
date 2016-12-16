@@ -13,14 +13,14 @@
             </div>
         </div>
         <ion-list id="timewarp-list2">
-            <ion-item ng-click="flightBreakdown(&quot;{{tier.type}}&quot;)" ng-repeat="tier in tiers" style='padding:0px' ng-if="flightDetails[tier.type]['airlines'].length > 1 && flightDetails[tier.type]['outbound'].length > 0 && flightDetails[tier.type]['return'].length > 0">
+            <ion-item ng-click="flightBreakdown(&quot;{{tier.type}}&quot;)" ng-repeat="tier in tiers" style='padding:0px' ng-if="flightDetails[tier.type]['airlines'].length > 1 && flightDetails[tier.type]['outbound'].length > 0 && flightDetails[tier.type]['return'].length > 0 && flightDetails[tier.type]['savings'] > 20">
                 <div class='{{tier.type}}_background_image tier_info_container'>
                     <div class='tier_text row'>
                         <div class='col-60'>
                             <h2 style='white-space:normal;'>{{tier.title}}</h2>
                             <h4 style='white-space:normal;'>{{tier.description}}</h4>
                             <h4 class="discount">
-                                <strike style='color:red;'>{{flightDetails[tier.type]['currentPrice'] | currency:"$":0}}</strike>&nbsp;Save {{flightDetails[tier.type]['currentPrice'] - flightDetails[tier.type]['tierPrice'] | currency:"$":0}}</h4>
+                                <strike style='color:red;'>{{flightDetails[tier.type]['currentPrice'] | currency:"$":0}}</strike>&nbsp;Save {{flightDetails[tier.type]['savings'] | currency:"$":0}}</h4>
                         </div>
                         <div class='col-40 col-center' style='position:absolute;right:10px;'>
                             <button class="button button-positive" style='padding:0px 25px;'>{{flightDetails[tier.type]['tierPrice'] | currency:"$":0}}</button>

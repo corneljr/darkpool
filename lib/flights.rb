@@ -14,11 +14,18 @@ module Flights
 		nonstop_uri = URI("https://mobile-api.hopper.com/api/v1/cards?origin=#{origin}&destination=#{destination}&departure=#{departure_date}&return=#{return_date}&trip_filter=And%28NonStop%2CNoLCC%29")
 		nonstop_response = Net::HTTP.get(nonstop_uri)
 		nonstop_parsed_response = JSON.parse(nonstop_response)
-		nonstop_forecast = nonstop_parsed_response['cards'][1]['forecast']
 
-		nonstopCurrentPrice = nonstop_forecast['bestRecentPrice']
-		nonstopTargetPrice = nonstop_forecast['targetPrice']
-		nonstopAvailableDiscount = nonstopCurrentPrice - nonstopTargetPrice
+		if nonstop_parsed_response['cards'].empty?
+			nonstopCurrentPrice = 0
+			nonstopTargetPrice = 0
+			nonstopAvailableDiscount = 0
+		else
+			nonstop_forecast = nonstop_parsed_response['cards'][1]['forecast']
+
+			nonstopCurrentPrice = nonstop_forecast['bestRecentPrice']
+			nonstopTargetPrice = nonstop_forecast['targetPrice']
+			nonstopAvailableDiscount = nonstopCurrentPrice - nonstopTargetPrice
+		end
 
 		#########################################
 
@@ -49,10 +56,10 @@ module Flights
 					   'destination' => destination_city, 
 					   'departureDate' => departure_date,
 					   'returnDate' => return_date,
-					   'flexNonstop' => {'currentPrice' => nonstopCurrentPrice, 'tierPrice' => nonstopCurrentPrice - (nonstopAvailableDiscount * 0.8).to_i,'airlines' => [], 'outbound' => [], 'return' => []},
-					   'nonstop' => {'currentPrice' => nonstopCurrentPrice, 'tierPrice' => nonstopCurrentPrice - (nonstopAvailableDiscount * 0.5).to_i,'airlines' => [], 'outbound' => [], 'return' => []},
-					   'onestop' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.5).to_i,'airlines' => [], 'outbound' => [], 'return' => []},
-					   'flex' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.8).to_i,'airlines' => [], 'outbound' => [], 'return' => []}
+					   'flexNonstop' => {'currentPrice' => nonstopCurrentPrice, 'tierPrice' => nonstopCurrentPrice - (nonstopAvailableDiscount * 0.8).to_i,'savings' => (nonstopAvailableDiscount * 0.8).to_i,'airlines' => [], 'outbound' => [], 'return' => []},
+					   'nonstop' => {'currentPrice' => nonstopCurrentPrice, 'tierPrice' => nonstopCurrentPrice - (nonstopAvailableDiscount * 0.5).to_i,'savings' => (nonstopAvailableDiscount * 0.5).to_i,'airlines' => [], 'outbound' => [], 'return' => []},
+					   'onestop' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.5).to_i,'airlines' => [],'savings' => (availableDiscount * 0.5).to_i,'outbound' => [], 'return' => []},
+					   'flex' => {'currentPrice' => currentPrice, 'tierPrice' => currentPrice - (availableDiscount * 0.8).to_i,'airlines' => [],'savings' => (availableDiscount * 0.8).to_i,'outbound' => [], 'return' => []}
 					}
 
 		flight_nums = []
