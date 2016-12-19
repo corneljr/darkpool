@@ -1,0 +1,59 @@
+<ion-view title='TimeWarp!' id="page1" style="background-color:#FFFFFF;">
+    <ion-content padding="false" class="has-header">
+        <div>
+            <div class="info-container" style='padding-top:10px;padding-bottom:10px;'>
+                <h4>{{flightDetails.origin}} - {{flightDetails.destination}}</h4>
+                <p>{{flightDetails.departureDate | date:'EEE MMM d, yyyy'}} to {{flightDetails.returnDate | date:'EEE MMM d, yyyy'}}</p>
+                <p>Roundtrip</p>
+            </div>
+        </div>
+        <ion-list id="timewarp-list2">
+            <ion-item ng-click="flightBreakdown(&quot;{{tier.type}}&quot;)" ng-repeat="tier in tiers" style='padding:0px' ng-if="flightDetails[tier.type]['airlines'].length > 1 && flightDetails[tier.type]['outbound'].length > 0 && flightDetails[tier.type]['return'].length > 0 && flightDetails[tier.type]['savings'] > 20">
+                <div class='{{tier.type}}_background_image tier_info_container'>
+                    <div class='tier_text row'>
+                        <div class='col-60'>
+                            <h2 style='white-space:normal;'>{{tier.title}}</h2>
+                            <h4 style='white-space:normal;'>{{tier.description}}</h4>
+                            <h4 class="discount">
+                                <strike style='color:red;'>{{flightDetails[tier.type]['currentPrice'] | currency:"$":0}}</strike>&nbsp;Save {{flightDetails[tier.type]['savings'] | currency:"$":0}}</h4>
+                        </div>
+                        <div class='col-40 col-center' style='position:absolute;right:10px;'>
+                            <button class="button button-positive" style='padding:0px 25px;'>{{flightDetails[tier.type]['tierPrice'] | currency:"$":0}}</button>
+                        </div>
+                    </div>
+                    <div style='position:absolute;bottom:10px;right:5px;'><h4 class='align-right'>{{tier['social']}}</h4></div>
+                </div>
+            </ion-item>
+            <ion-item>
+                <div class='row'>
+                    <div class='col'>
+                        <p style='text-align:center;font-size:16px'><a ng-click='openModal()'>How does this work?</a></p>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+        <div>
+            <script id="howItWorks.html" type="text/ng-template">
+                <ion-modal-view>
+                    <ion-header-bar>
+                        <i style='font-size:25px;padding:5px;padding-top:20px;' ng-click="modal.hide()" class='ion-close'></i>
+                    </ion-header-bar>
+                    <ion-content>
+                        <div class='info-container'>
+                            <h3 class='align-center'>FAQs</h3>
+                            <h4>If I pay the price shown now, when will I actually receive my flight confirmation and details?</h4>
+                            <p>You will receive a Hopper receipt immediately with a Hopper Booking Confirmation Number. You will then receive your flight confirmation and details at least a month before your departure date.</p>
+                            <br>
+                            <h4>Can I get a full refund if I cancel at any point before I receive my flight confirmation?</h4>
+                            <p>Yes! Your Timewarp Fare is fully changeable and refundable until your flights are finalized and then for 24 hours afterwards.</p>
+                            <br>
+                            <h4>How can you guarentee this price?</h4>
+                            <p>Using our prediction algorithm, we are able to accurately predict the future prices of flights. We know that buying flights is typically the first step of planning a trip, so we wanted allow you to buy them immediately while still being able to take advantage of our predictions! If our predictions end up being wrong, we will pay the extra cost. Your flights and this price are 100% guaranteed.</p>
+                            <br>
+                        </div>
+                    </ion-content>
+                </ion-modal-view>
+            </script>
+        </div>
+    </ion-content>
+</ion-view>
