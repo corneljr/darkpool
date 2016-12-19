@@ -79,28 +79,12 @@ function ($scope,$rootScope,$window,$stateParams,$timeout,Flights, $ionicModal, 
     //     oldSoftBack();
     // };
 
-    $scope.getParameterByName = function(name) {
-      url = window.location.href;
-      name = name.replace(/[\[\]]/g, "\\$&");
-      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-          results = regex.exec(url);
-      if (!results) return null;
-      if (!results[2]) return '';
-      return decodeURIComponent(results[2].replace(/\+/g, " "));
-    };
+    if (!Flights.flightDetails) {
+      $window.location = $window.location.origin + $window.location.search
+    }
 
-    Flights.tripDetails = {'origin': $scope.getParameterByName('origin'),'destination': $scope.getParameterByName('destination'), 'departureDate': $scope.getParameterByName('departure'), 'returnDate': $scope.getParameterByName('return')}
+    $scope.flightDetails = Flights.flightDetails
     $scope.tripDetails = Flights.tripDetails;
-    promise = Flights.getFlights($scope.tripDetails.origin,$scope.tripDetails.destination,$scope.tripDetails.departureDate,$scope.tripDetails.returnDate);
-    promise.then( function(response){
-      Flights.flightDetails = response.data;
-      $scope.flightDetails = Flights.flightDetails;
-      $scope.dataLoaded = true;
-      mixpanel.register({"origin":$scope.flightDetails['origin'],"destination":$scope.flightDetails['destination'],"departure_date":$scope.flightDetails['departureDate'],"return_date":$scope.flightDetails['return_date']})
-      mixpanel.track("timewarp-launched_timewarp");
-    }, function(error_response) {
-      console.log(error_response);
-    });
 
     mixpanel.track("timewarp-completed_onboarding")
     $scope.tiers = Flights.tiers
@@ -344,10 +328,10 @@ function ($scope, $stateParams, $location, TravellerService, Flights, $state, $w
     }
 }])
    
-.controller('reviewFarePurchaseCtrl', ['$scope', '$state', '$window','$stateParams', 'TravellerService', '$ionicModal','Flights','PaymentService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('reviewFarePurchaseCtrl', ['$scope', '$state', '$window','$stateParams', 'TravellerService', '$ionicModal','Flights','PaymentService','$ionicHistory', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $window, $stateParams, TravellerService, $ionicModal,Flights,PaymentService) {
+function ($scope, $state, $window, $stateParams, TravellerService, $ionicModal,Flights,PaymentService,$ionicHistory) {
 
     if (!Flights.flightDetails) {
       $window.location = $window.location.origin + $window.location.search

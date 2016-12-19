@@ -45,7 +45,7 @@ angular.module('app.routes', [])
     controller: 'flightDetailsCtrl'
   })
 
-$urlRouterProvider.otherwise('/timewarp')
+$urlRouterProvider.otherwise('/home')
 
   
 
