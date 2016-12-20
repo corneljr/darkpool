@@ -58,6 +58,9 @@ function ($scope, $stateParams, $timeout, $window, Flights, $state) {
       $scope.dataLoaded = true;
       mixpanel.register({"origin":$scope.flightDetails['origin'],"destination":$scope.flightDetails['destination'],"departure_date":$scope.flightDetails['departureDate'],"return_date":$scope.flightDetails['return_date']})
       mixpanel.track("timewarp-launched_timewarp")
+      window.Intercom("boot", {
+        app_id: "xjsya93x"
+      });
     }, function(error_response) {
       console.log(error_response);
     });
