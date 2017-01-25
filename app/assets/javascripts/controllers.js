@@ -72,16 +72,6 @@ function ($scope, $stateParams, $timeout, $window, Flights, $state) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope,$rootScope,$window,$stateParams,$timeout,Flights, $ionicModal, $location, $state) {
 
-    // // grab pointer to original function
-    // var oldSoftBack = $rootScope.$ionicGoBack;
-
-    // // override default behaviour
-    // $rootScope.$ionicGoBack = function() {
-    //     window.location = "hopper-flights://home?tab=trips"
-
-    //     oldSoftBack();
-    // };
-
     if (!Flights.flightDetails) {
       $window.location = $window.location.origin + $window.location.search
     }
